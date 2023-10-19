@@ -17,16 +17,16 @@ class _EANotificationScreenState extends State<EANotificationScreen> {
         appBar: getAppBar(
           "Notification",
           center: true,
-          backWidget: Icon(Icons.arrow_back, color: white).onTap(() {
+          backWidget: const Icon(Icons.arrow_back, color: white).onTap(() {
             finish(context);
           }),
         ),
         body: ListView.separated(
           separatorBuilder: (context, index) {
-            return Divider();
+            return const Divider();
           },
           shrinkWrap: true,
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           itemCount: notificationList.length,
           itemBuilder: (context, index) {
             return Row(

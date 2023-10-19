@@ -1,23 +1,37 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup/components/login_page.dart';
+import 'package:sqflite/sqflite.dart';
 
-import 'package:flutter/cupertino.dart';
 
-import 'package:login_signup/screens/settings_screen.dart';
-import 'package:login_signup/utils/theme_data.dart';
 
-void main() {
+void main() async {
+  
   runApp(const MyApp());
+
+
+
 }
+
+
 
 late _MyAppState settingUI;
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false,
+   return AdaptiveTheme(
+      light: ThemeData.light(useMaterial3: true),
+      dark: ThemeData.dark(useMaterial3: true),
+      initial: AdaptiveThemeMode.dark,
+      builder: (theme, darkTheme) => MaterialApp(
+        
+        theme: theme,
+        darkTheme: darkTheme,
         home: LoginPage(),
+      ),
     );
   }
   @override
@@ -32,17 +46,24 @@ class _MyAppState extends State<MyApp> {
   bool isDarkMode = true;
 
   void callSetState() {
-    setState(() {});
+    setState(() {
+      isDarkMode =  !isDarkMode ;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     settingUI = this;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Settings UI',
-      
-      home: const LoginPage(),
+     return AdaptiveTheme(
+      light: ThemeData.light(useMaterial3: true),
+      dark: ThemeData.dark(useMaterial3: true),
+      initial: AdaptiveThemeMode.dark,
+      builder: (theme, darkTheme) => MaterialApp(
+        title: 'Setting ui',
+        theme: theme,
+        darkTheme: darkTheme,
+        home: LoginPage(),
+      ),
     );
   }
 }

@@ -40,7 +40,7 @@ class _EAFilterScreenState extends State<EAFilterScreen> {
         decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: const LinearGradient(colors: [primaryColor1, primaryColor2])),
         child: Text('Show 100+ Event'.toUpperCase(), style: primaryTextStyle(color: white, size: 16)),
       ).onTap(() {
-        EALocationScreen().launch(context);
+        const EALocationScreen().launch(context);
       }),
       body: SingleChildScrollView(
         child: Column(
@@ -122,7 +122,7 @@ class _EAFilterScreenState extends State<EAFilterScreen> {
                 activeTrackColor: primaryColor1,
                 inactiveTrackColor: grey.withOpacity(0.1),
                 thumbColor: white,
-                valueIndicatorTextStyle: TextStyle(color: Colors.white),
+                valueIndicatorTextStyle: const TextStyle(color: Colors.white),
               ),
               child: RangeSlider(
                 values: _currentRangeValues,

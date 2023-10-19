@@ -1,9 +1,7 @@
 import 'package:login_signup/utils/EAColors.dart';
 import 'package:login_signup/utils/EADataProvider.dart';
 import 'package:login_signup/utils/EAapp_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'EASelectHashtagScreen.dart';
@@ -68,7 +66,7 @@ class _EASelectCityScreenState extends State<EASelectCityScreen> {
                                               primaryColor2.withOpacity(0.4),
                                             ],
                                           )
-                                        : LinearGradient(
+                                        : const LinearGradient(
                                             colors: [transparentColor, transparentColor],
                                           ),
                                   ),
@@ -98,10 +96,10 @@ class _EASelectCityScreenState extends State<EASelectCityScreen> {
             bottom: 4,
             child: Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               width: context.width(),
               height: 50,
-              decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: LinearGradient(colors: [primaryColor1, primaryColor2])),
+              decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: const LinearGradient(colors: [primaryColor1, primaryColor2])),
               child: Text('Next'.toUpperCase(), style: boldTextStyle(color: white, size: 18)),
             ).onTap(() {
               EASelectHashtagScreen(name: cityList[selectCity].name!).launch(context);

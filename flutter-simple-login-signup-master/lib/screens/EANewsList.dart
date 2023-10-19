@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EANewsList extends StatefulWidget {
+  const EANewsList({super.key});
+
   @override
   EANewsListState createState() => EANewsListState();
 }
@@ -40,7 +42,7 @@ class EANewsListState extends State<EANewsList> {
               expandedHeight: 300.0,
               forceElevated: innerBoxIsScrolled,
               title: Text(innerBoxIsScrolled ? "Fashions Finest AW18 During New York Fashion Week" : ""),
-              iconTheme: IconThemeData(color: white),
+              iconTheme: const IconThemeData(color: white),
               automaticallyImplyLeading: false,
               backgroundColor: primaryColor1,
               flexibleSpace: FlexibleSpaceBar(
@@ -84,7 +86,7 @@ class EANewsListState extends State<EANewsList> {
         },
         body: ListView.builder(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 12, right: 12, top: 8),
+          padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
           itemCount: eventList.length,
           itemBuilder: (context, i) {
             return Row(
@@ -103,7 +105,7 @@ class EANewsListState extends State<EANewsList> {
               ],
             ).onTap(
               () {
-                EANewsDetailScreen().launch(context);
+                const EANewsDetailScreen().launch(context);
               },
             ).paddingSymmetric(vertical: 8);
           },

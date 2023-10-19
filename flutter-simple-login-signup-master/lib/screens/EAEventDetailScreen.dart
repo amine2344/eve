@@ -15,7 +15,7 @@ class EAEventDetailScreen extends StatefulWidget {
   final String? price;
   final String? image;
 
-  EAEventDetailScreen({this.name, this.hashTag, this.attending, this.price, this.image});
+  const EAEventDetailScreen({super.key, this.name, this.hashTag, this.attending, this.price, this.image});
 
   @override
   _EAEventDetailScreenState createState() => _EAEventDetailScreenState();
@@ -41,7 +41,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
               title: Text(innerBoxIsScrolled ? widget.name! : ""),
               backgroundColor: primaryColor1,
               expandedHeight: 250.0,
-              iconTheme: IconThemeData(color: white),
+              iconTheme: const IconThemeData(color: white),
               automaticallyImplyLeading: true,
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(
@@ -87,14 +87,14 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
               Text(widget.name!, style: boldTextStyle()).paddingOnly(left: 12, bottom: 8),
               Row(
                 children: [
-                  Icon(Icons.timelapse_rounded, size: 20),
+                  const Icon(Icons.timelapse_rounded, size: 20),
                   8.width,
                   Text("SUN MAR.25-4:30 PM EST", style: primaryTextStyle()),
                 ],
               ).paddingOnly(left: 12, bottom: 8),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.local_activity_outlined,
                     size: 20,
                   ),
@@ -105,7 +105,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
               16.height,
               Container(
                 color: grey.withOpacity(0.1),
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                 child: Row(
                   children: [
                     Text('4.3', style: boldTextStyle(size: 30, color: primaryColor1)),
@@ -136,11 +136,11 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                     ).expand(),
                     Row(
                       children: [
-                        Icon(Icons.edit, color: primaryColor1),
+                        const Icon(Icons.edit, color: primaryColor1),
                         Text('Write Review', style: primaryTextStyle(color: primaryColor1)),
                       ],
                     ).onTap(() {
-                      EAReviewScreen().launch(context, pageRouteAnimation: PageRouteAnimation.SlideBottomTop);
+                      const EAReviewScreen().launch(context, pageRouteAnimation: PageRouteAnimation.SlideBottomTop);
                     })
                   ],
                 ),
@@ -154,7 +154,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                   Text(des, style: primaryTextStyle()),
                   Text(des1, style: primaryTextStyle()),
                   Row(
-                    children: [Text("Detail", style: primaryTextStyle(color: primaryColor1)), 4.width, Icon(Icons.arrow_forward_ios_outlined, size: 14, color: primaryColor1)],
+                    children: [Text("Detail", style: primaryTextStyle(color: primaryColor1)), 4.width, const Icon(Icons.arrow_forward_ios_outlined, size: 14, color: primaryColor1)],
                   ),
                 ],
               ).paddingOnly(left: 12, bottom: 8, top: 8),
@@ -163,7 +163,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     backgroundImage: NetworkImage("https://assets.iqonic.design/old-themeforest-images/prokit/datingApp/Image.2.jpg"),
                     backgroundColor: white,
                     maxRadius: 30,
@@ -193,7 +193,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                     children: [
                       Text("How to get there", style: primaryTextStyle(color: primaryColor1)),
                       4.width,
-                      Icon(Icons.arrow_forward_ios_outlined, size: 14, color: primaryColor1),
+                      const Icon(Icons.arrow_forward_ios_outlined, size: 14, color: primaryColor1),
                     ],
                   ),
                 ],
@@ -220,7 +220,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
               ).paddingOnly(left: 12, bottom: 8, top: 8, right: 12),
               Text('Similar Events'.toUpperCase(), style: boldTextStyle(color: grey)).paddingOnly(left: 12, bottom: 8, top: 8),
               HorizontalList(
-                padding: EdgeInsets.only(left: 12, bottom: 8, top: 8, right: 12),
+                padding: const EdgeInsets.only(left: 12, bottom: 8, top: 8, right: 12),
                 itemCount: forYouList.length,
                 itemBuilder: (context, i) {
                   return Column(
@@ -231,7 +231,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                         alignment: Alignment.bottomCenter,
                         children: [
                           Image.asset(forYouList[i].image!, height: 180, width: context.width() * 0.7, fit: BoxFit.cover).cornerRadiusWithClipRRect(8),
-                          Positioned(right: 16, top: 16, child: Icon(Icons.favorite_border, color: white, size: 22)),
+                          const Positioned(right: 16, top: 16, child: Icon(Icons.favorite_border, color: white, size: 22)),
                         ],
                       ),
                       Column(
@@ -270,19 +270,19 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Icon(Entypo.location, size: 16),
+                                  const Icon(Entypo.location, size: 16),
                                   8.width,
                                   Text(forYouList[i].add!, style: secondaryTextStyle()),
                                 ],
                               ),
-                              Text(forYouList[i].distance.toString() + 'km', style: secondaryTextStyle(color: primaryColor1)),
+                              Text('${forYouList[i].distance}km', style: secondaryTextStyle(color: primaryColor1)),
                             ],
                           ),
                           6.height,
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.local_activity_outlined, size: 16),
+                              const Icon(Icons.local_activity_outlined, size: 16),
                               8.width,
                               Text(forYouList[i].attending!, style: secondaryTextStyle()),
                             ],
@@ -305,7 +305,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
         decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: const LinearGradient(colors: [primaryColor1, primaryColor2])),
         child: widget.price == 'Free' ? Text('Join it free'.toUpperCase(), style: boldTextStyle(color: white)) : Text('From \$20- get it'.toUpperCase(), style: boldTextStyle(color: white)),
       ).onTap(() {
-        EATicketDetailScreen().launch(context);
+        const EATicketDetailScreen().launch(context);
       }),
     );
   }

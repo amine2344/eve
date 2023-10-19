@@ -40,7 +40,7 @@ class _EALocationScreenState extends State<EALocationScreen> {
           },
         ),
       ),
-      body: PurchaseMoreScreen(),
+      body: const PurchaseMoreScreen(),
     );
   }
 }

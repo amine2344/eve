@@ -21,6 +21,7 @@ class _EAReviewScreenState extends State<EAReviewScreen> {
     return Container(
       color: primaryColor1,
       child: Align(
+        alignment: Alignment.centerRight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -30,7 +31,6 @@ class _EAReviewScreenState extends State<EAReviewScreen> {
             20.width,
           ],
         ),
-        alignment: Alignment.centerRight,
       ),
     );
   }

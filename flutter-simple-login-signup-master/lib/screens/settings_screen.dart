@@ -1,14 +1,15 @@
+
+
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keepsettings/keepsettings.dart';
+import 'package:login_signup/components/login_page.dart';
 import 'package:login_signup/main.dart';
 import 'package:login_signup/utils/color_picker.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-import 'package:login_signup/utils/theme_data.dart';
 
 enum RadioButtonOptions { op1, op2, op3 }
 
@@ -24,7 +25,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool tileManager = settingUI.isDarkMode;
   var initialRadioChoice = RadioButtonOptions.op2;
   var checkBoxManager = true;
-
+  var tile1 = false ;
+  var tile2 = false ;
   // Color iconColor = Colors.black;
   double sliderCurVal = 20;
   var initialValue = 20.0;
@@ -32,9 +34,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Settings UI')),
-      ),
+     
+     
       body: SafeArea(
         child: settingsList(),
       ),
@@ -42,53 +43,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget settingsList() {
+    String hexcolor =  "#ed3269";
+    
     return SettingsList(
+      
       sections: [
         TilesSection(
-          title: 'Tiles',
+          
           tiles: [
+            
             SettingsTile(
               title: 'Language',
+              
               leading: const Icon(Icons.language),
               trailing: languageTrailing(),
             ),
             SettingsTile.switchTile(
-              title: 'Stop Push Notification',
+              title: 'Notification Push',
               leading: const Icon(CupertinoIcons.bell),
-              switchActiveColor: Theme.of(context).colorScheme.secondary,
-              switchValue: tileManager,
-              onToggle: toggleDarkMode,
+              switchActiveColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
+              switchValue: tile1,
+              
+              onToggle: Notify,
             ),
-            SettingsTile(
-              trailing: const Icon(
-                CupertinoIcons.forward,
-              ),
-              title: 'Primary Color',
-              leading: const Icon(
-                Icons.color_lens_outlined,
-              ),
-              onPressed: (_) {
-                colorPicker(primaryColors, onPrimaryColorChange);
-              },
-            ),
-            SettingsTile(
-              trailing: const Icon(
-                CupertinoIcons.forward,
-              ),
-              title: ' Accent Color',
-              leading: const Icon(
-                Icons.color_lens_outlined,
-              ),
-              onPressed: (_) {
-                colorPicker(accentColors, onAccentColorChange);
-              },
-            ),
+           
+           
             SettingsTile.switchTile(
               title: ' Dark Mode',
               subtitle: 'Save your eyes',
               leading: const Icon(CupertinoIcons.cloud_sun),
-              switchActiveColor: Theme.of(context).colorScheme.secondary,
-              switchValue: tileManager,
+              switchActiveColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
+              switchValue: tile2,
               onToggle: toggleDarkMode,
 
             ),
@@ -99,11 +84,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               title: 'Slow Down Animations',
             ),
             SettingsTile(
-              onPressed: (_) {
-                Navigator.of(context).maybePop();
-              },
-              title: 'Back to home screen',
-              subtitle: 'Home',
+                          onPressed: (_) { 
+                            
+ 
+
+                      },
+              title: 'log out',
+              
               leading: const Icon(CupertinoIcons.back),
             ),
           ],
@@ -121,7 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           title: 'Slider',
         ), */
-        RadioButtonSection(
+        /* RadioButtonSection(
           title: 'Radio Button',
           tiles: [
             RadioButton<RadioButtonOptions>(
@@ -143,7 +130,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onChanged: onRadioChanged,
             ),
           ],
-        ),
+        ), */
       ],
     );
   }
@@ -152,8 +139,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> toggleDarkMode(bool value) async {
     doSomething(value);
     setState(() {
-      settingUI.isDarkMode = !settingUI.isDarkMode;
-      tileManager = !tileManager;
+      settingUI.isDarkMode ?      AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
+      tile2 =  !tile2; 
+      // sets theme mode to dark
+    });
+    settingUI.callSetState();
+  }  Future<void> Notify(bool value) async {
+    doSomething(value);
+    setState(() {
+
+      tile1 =  !tile1; 
+      // sets theme mode to dark
     });
     settingUI.callSetState();
   }

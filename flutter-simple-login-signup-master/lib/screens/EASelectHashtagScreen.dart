@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 class EASelectHashtagScreen extends StatefulWidget {
   final String? name;
 
-  EASelectHashtagScreen({this.name});
+  const EASelectHashtagScreen({super.key, this.name});
 
   @override
   _EASelectHashtagScreenState createState() => _EASelectHashtagScreenState();
@@ -18,11 +18,11 @@ class _EASelectHashtagScreenState extends State<EASelectHashtagScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar("Select #Hashtag", backWidget: BackButton(color: white)),
+      appBar: getAppBar("Select #Hashtag", backWidget: const BackButton(color: white)),
       body: Stack(
         children: [
           SingleChildScrollView(
-            padding: EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 80),
+            padding: const EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 80),
             child: Wrap(
               runSpacing: 12,
               spacing: 16,
@@ -42,7 +42,7 @@ class _EASelectHashtagScreenState extends State<EASelectHashtagScreen> {
                               width: context.width() * 0.43,
                               decoration: boxDecorationWithRoundedCorners(
                                 borderRadius: radius(16),
-                                gradient: hashtagList[index].selectHash == true ? LinearGradient(colors: [primaryColor1.withOpacity(0.4), primaryColor2.withOpacity(0.4)]) : LinearGradient(colors: [transparentColor, transparentColor]),
+                                gradient: hashtagList[index].selectHash == true ? LinearGradient(colors: [primaryColor1.withOpacity(0.4), primaryColor2.withOpacity(0.4)]) : const LinearGradient(colors: [transparentColor, transparentColor]),
                               ),
                             ),
                             Icon(Icons.check_circle_outline, size: 30, color: hashtagList[index].selectHash == true ? white : transparentColor)
@@ -67,10 +67,10 @@ class _EASelectHashtagScreenState extends State<EASelectHashtagScreen> {
             bottom: 4,
             child: Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               width: context.width(),
               height: 50,
-              decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: LinearGradient(colors: [primaryColor1, primaryColor2])),
+              decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: const LinearGradient(colors: [primaryColor1, primaryColor2])),
               child: Text("Let's start!".toUpperCase(), style: boldTextStyle(color: white, size: 18)),
             ).onTap(() {
               EADashedBoardScreen(name: widget.name).launch(context);

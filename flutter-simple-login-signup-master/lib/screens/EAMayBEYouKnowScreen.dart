@@ -4,10 +4,11 @@ import 'package:login_signup/utils/EAColors.dart';
 import 'package:login_signup/utils/EADataProvider.dart';
 import 'package:login_signup/utils/EAapp_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EAMayBEYouKnowScreen extends StatefulWidget {
+  const EAMayBEYouKnowScreen({super.key});
+
   @override
   EAMayBEYouKnowScreenState createState() => EAMayBEYouKnowScreenState();
 }
@@ -34,13 +35,13 @@ class EAMayBEYouKnowScreenState extends State<EAMayBEYouKnowScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         shrinkWrap: true,
         itemCount: list.length,
         itemBuilder: (BuildContext context, int index) {
           EAForYouModel data = list[index];
           return Container(
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

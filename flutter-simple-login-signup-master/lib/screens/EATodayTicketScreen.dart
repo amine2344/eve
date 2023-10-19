@@ -27,7 +27,7 @@ class _EATodayTicketScreenState extends State<EATodayTicketScreen> {
               itemCount: ticketList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: boxDecorationRoundedWithShadow(8),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +36,7 @@ class _EATodayTicketScreenState extends State<EATodayTicketScreen> {
                         height: 100,
                         width: 80,
                         alignment: Alignment.center,
-                        decoration: boxDecorationWithRoundedCorners(borderRadius: BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)), backgroundColor: ticketList[index].count == 0 ? grey.withOpacity(0.2) : primaryColor1),
+                        decoration: boxDecorationWithRoundedCorners(borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)), backgroundColor: ticketList[index].count == 0 ? grey.withOpacity(0.2) : primaryColor1),
                         child: Text(ticketList[index].count.toString(), style: boldTextStyle(size: 50, color: ticketList[index].count == 0 ? grey : white)),
                       ),
                       Column(
@@ -52,9 +52,9 @@ class _EATodayTicketScreenState extends State<EATodayTicketScreen> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(alignment: Alignment.center, padding: EdgeInsets.all(12), decoration: boxDecorationWithShadow(borderRadius: BorderRadius.only(topRight: Radius.circular(8))), child: Icon(Icons.add, color: primaryColor1))
+                          Container(alignment: Alignment.center, padding: const EdgeInsets.all(12), decoration: boxDecorationWithShadow(borderRadius: const BorderRadius.only(topRight: Radius.circular(8))), child: const Icon(Icons.add, color: primaryColor1))
                               .onTap(() {}),
-                          Container(alignment: Alignment.center, padding: EdgeInsets.all(12), decoration: boxDecorationWithShadow(borderRadius: BorderRadius.only(bottomRight: Radius.circular(8))), child: Icon(Icons.minimize, color: primaryColor1))
+                          Container(alignment: Alignment.center, padding: const EdgeInsets.all(12), decoration: boxDecorationWithShadow(borderRadius: const BorderRadius.only(bottomRight: Radius.circular(8))), child: const Icon(Icons.minimize, color: primaryColor1))
                               .onTap(() {}),
                         ],
                       ).visible(ticketList[index].payment != "Sold Out")
@@ -68,13 +68,13 @@ class _EATodayTicketScreenState extends State<EATodayTicketScreen> {
       ),
       bottomNavigationBar: Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         width: context.width(),
         height: 50,
-        decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: LinearGradient(colors: [primaryColor1, primaryColor2])),
+        decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: const LinearGradient(colors: [primaryColor1, primaryColor2])),
         child: Text('Purchase'.toUpperCase(), style: boldTextStyle(color: white, size: 18)),
       ).onTap(() {
-        EAPurchaseScreen().launch(context);
+        const EAPurchaseScreen().launch(context);
       }),
     );
   }

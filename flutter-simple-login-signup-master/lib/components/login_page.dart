@@ -1,3 +1,5 @@
+import 'package:path/path.dart'  as Path;
+
 import 'package:flutter/material.dart';
 import 'package:login_signup/components/common/custom_input_field.dart';
 import 'package:login_signup/components/common/page_header.dart';
@@ -5,16 +7,13 @@ import 'package:login_signup/components/forget_password_page.dart';
 import 'package:login_signup/components/signup_page.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:login_signup/components/common/page_heading.dart';
-import 'package:login_signup/screens/EAWalkThroughScreen.dart';
 
 import 'package:login_signup/components/common/custom_form_button.dart';
 import 'package:login_signup/screens/EADashedBoardScreen.dart';
 
-import 'package:login_signup/utils/EAColors.dart';
-import 'package:login_signup/utils/EAImages.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -126,15 +125,52 @@ class _LoginPageState extends State<LoginPage> {
         ),
     );
   }
+  
 
-  void _handleLoginUser() {
-    // login user
+  void _handleLoginUser() async {
+    // Initialize FFI
+  sqfliteFfiInit();
+
+
+  databaseFactory = databaseFactoryFfi;
+  // Avoid errors caused by flutter upgrade.
+  // Importing 'package:flutter/widgets.dart' is required.
+  WidgetsFlutterBinding.ensureInitialized();
+
+
+     final database = openDatabase(
+    // Set the path to the database. Note: Using the `join` function from the
+    // `path` package is best practice to ensure the path is correctly
+    // constructed for each platform.
+    
+    Path.join(await getDatabasesPath(), 'user.db'),);
+
+  // A method that retrieves all the user from the user table.
+  Future<List<User>> user() async {
+   
+    // Get a reference to the database.
+    final db = await database;
+
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query('user');
+
+    // Convert the List<Map<String, dynamic> into a List<User>.
+    return List.generate(maps.length, (i) {
+      return User(
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        email: maps[i]['email'],
+        image : maps[i]['image'],
+      );
+    });
+    
+  }print(await user());
     if (_loginFormKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Submitting data..')),
       );
      
-    EADashedBoardScreen().launch(context, isNewTask: true);
+    const EADashedBoardScreen().launch(context, isNewTask: true);
 
 
 

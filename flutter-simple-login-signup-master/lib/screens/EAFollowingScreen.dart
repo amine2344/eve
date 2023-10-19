@@ -19,13 +19,13 @@ class _EAFollowingScreenState extends State<EAFollowingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         shrinkWrap: true,
         itemCount: list.length,
         itemBuilder: (BuildContext context, int index) {
           EAForYouModel data = list[index];
           return Container(
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -44,7 +44,7 @@ class _EAFollowingScreenState extends State<EAFollowingScreen> {
                     list.removeAt(index);
                     setState(() {});
                   },
-                  icon: Icon(LineIcons.times_circle, color: primaryColor1, size: 30),
+                  icon: const Icon(LineIcons.times_circle, color: primaryColor1, size: 30),
                 )
               ],
             ),

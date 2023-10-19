@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EAExplorerScreen extends StatefulWidget {
+  const EAExplorerScreen({super.key});
+
   @override
   EAExplorerScreenState createState() => EAExplorerScreenState();
 }

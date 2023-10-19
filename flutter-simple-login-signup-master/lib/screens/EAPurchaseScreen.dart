@@ -30,14 +30,14 @@ class _EAPurchaseScreenState extends State<EAPurchaseScreen> {
                 backgroundColor: primaryColor1,
                 title: Text('Purchase Detail', style: boldTextStyle(color: white)),
                 expandedHeight: context.height() * 0.5,
-                iconTheme: IconThemeData(color: white),
+                iconTheme: const IconThemeData(color: white),
                 automaticallyImplyLeading: true,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
                               primaryColor1,
@@ -48,7 +48,7 @@ class _EAPurchaseScreenState extends State<EAPurchaseScreen> {
                       ),
                       Container(
                         height: context.height() * 0.413,
-                        margin: EdgeInsets.all(22),
+                        margin: const EdgeInsets.all(22),
                         decoration: boxDecorationWithShadow(backgroundColor: white, borderRadius: radius(8)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +59,7 @@ class _EAPurchaseScreenState extends State<EAPurchaseScreen> {
                                 16.height,
                                 Row(
                                   children: [
-                                    Icon(Icons.timelapse_rounded, size: 20),
+                                    const Icon(Icons.timelapse_rounded, size: 20),
                                     8.width,
                                     Text("SUN MAR.25-4:30 PM EST", style: primaryTextStyle()),
                                   ],
@@ -68,7 +68,7 @@ class _EAPurchaseScreenState extends State<EAPurchaseScreen> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(Entypo.location, size: 16),
+                                    const Icon(Entypo.location, size: 16),
                                     8.width,
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +83,7 @@ class _EAPurchaseScreenState extends State<EAPurchaseScreen> {
                                 16.height,
                                 Row(
                                   children: [
-                                    Icon(Icons.local_activity_outlined, size: 20),
+                                    const Icon(Icons.local_activity_outlined, size: 20),
                                     8.width,
                                     Text("2 vip Tickets - \$160", style: primaryTextStyle()),
                                   ],
@@ -92,7 +92,7 @@ class _EAPurchaseScreenState extends State<EAPurchaseScreen> {
                             ).paddingAll(16),
                             Container(
                               decoration: boxDecorationWithRoundedCorners(backgroundColor: grey.withOpacity(0.1)),
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -110,7 +110,7 @@ class _EAPurchaseScreenState extends State<EAPurchaseScreen> {
               ),
             ];
           },
-          body: PurchaseMoreScreen(),
+          body: const PurchaseMoreScreen(),
         ),
         bottomNavigationBar: commonButton(width: context.width(), btnText: "Get it").paddingAll(18));
   }

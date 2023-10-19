@@ -1,21 +1,7 @@
-import 'package:login_signup/components/EAProfileTopComponent.dart';
-import 'package:login_signup/screens/EANotificationScreen.dart';
-import 'package:login_signup/screens/EARewardScreen.dart';
-import 'package:login_signup/utils/EAColors.dart';
-import 'package:login_signup/utils/EADataProvider.dart';
-import 'package:login_signup/utils/EAImages.dart';
-import 'package:login_signup/utils/EAapp_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:nb_utils/nb_utils.dart';
-
-import 'EAConnectionScreen.dart';
-import 'EAIndexScreen.dart';
-import 'EASettingScreen.dart';
 
 
-import 'package:flutter/cupertino.dart';
+
 
 import 'package:login_signup/model/user.dart';
 import 'package:login_signup/utils/user_preferences.dart';
@@ -25,6 +11,8 @@ import 'package:login_signup/widget/numbers_widget.dart';
 import 'package:login_signup/widget/profile_widget.dart';
 
 class EAProfileScreen extends StatefulWidget {
+  const EAProfileScreen({super.key});
+
   @override
   EAProfileScreenState createState() => EAProfileScreenState();
 }
@@ -43,12 +31,12 @@ class EAProfileScreenState extends State<EAProfileScreen> {
   }
  @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    const user = UserPreferences.myUser;
 
     return Scaffold(
       appBar: buildAppBar(context),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           ProfileWidget(
             imagePath: user.imagePath,
@@ -59,7 +47,7 @@ class EAProfileScreenState extends State<EAProfileScreen> {
           const SizedBox(height: 24),
           Center(child: buildUpgradeButton()),
           const SizedBox(height: 24),
-          NumbersWidget(),
+          const NumbersWidget(),
           const SizedBox(height: 48),
           buildAbout(user),
         ],
@@ -71,12 +59,12 @@ class EAProfileScreenState extends State<EAProfileScreen> {
         children: [
           Text(
             user.name,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 4),
           Text(
             user.email,
-            style: TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
           )
         ],
       );
@@ -87,18 +75,18 @@ class EAProfileScreenState extends State<EAProfileScreen> {
       );
 
   Widget buildAbout(User user) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 48),
+        padding: const EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'About',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Text(
               user.about,
-              style: TextStyle(fontSize: 16, height: 1.4),
+              style: const TextStyle(fontSize: 16, height: 1.4),
             ),
           ],
         ),

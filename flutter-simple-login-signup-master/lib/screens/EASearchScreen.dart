@@ -36,7 +36,7 @@ class EASearchScreenState extends State<EASearchScreen> {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          PurchaseMoreScreen(),
+          const PurchaseMoreScreen(),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             margin: const EdgeInsets.only(bottom: 16),

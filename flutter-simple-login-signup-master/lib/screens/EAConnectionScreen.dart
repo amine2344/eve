@@ -9,7 +9,7 @@ import 'EAFollowingScreen.dart';
 class EAConnectionScreen extends StatefulWidget {
   final int? ind;
 
-  EAConnectionScreen({this.ind});
+  const EAConnectionScreen({super.key, this.ind});
 
   @override
   _EAConnectionScreenState createState() => _EAConnectionScreenState();
@@ -20,7 +20,7 @@ class _EAConnectionScreenState extends State<EAConnectionScreen> {
     Tab(text: "FolLowers".toUpperCase()),
     Tab(text: "Following".toUpperCase()),
   ];
-  final connectionTabPages = <Widget>[EAFollowersScreen(), EAFollowingScreen()];
+  final connectionTabPages = <Widget>[const EAFollowersScreen(), const EAFollowingScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,12 @@ class _EAConnectionScreenState extends State<EAConnectionScreen> {
               onPressed: () {
                 finish(context);
               },
-              icon: Icon(Icons.arrow_back, color: white))),
+              icon: const Icon(Icons.arrow_back, color: white))),
       body: DefaultTabController(
         length: 2,
         child: Column(
           children: <Widget>[
-            Container(
+            SizedBox(
               width: context.width(),
               child: Material(
                 color: Colors.white,
@@ -44,13 +44,13 @@ class _EAConnectionScreenState extends State<EAConnectionScreen> {
                   indicatorColor: primaryColor1,
                   labelColor: primaryColor1,
                   unselectedLabelColor: grey,
-                  unselectedLabelStyle: TextStyle(color: redColor),
+                  unselectedLabelStyle: const TextStyle(color: redColor),
                 ),
               ),
             ),
             Expanded(
               child: TabBarView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: connectionTabPages,
               ),
             ),

@@ -47,7 +47,7 @@ class _PurchaseMoreScreenState extends State<PurchaseMoreScreen> {
               22.height,
               Text('This is the Lite Version of the Event App', style: boldTextStyle(size: 22)),
               16.height,
-              PurchaseButton(),
+              const PurchaseButton(),
             ],
           ),
         ),

@@ -7,6 +7,8 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EANewsDetailScreen extends StatefulWidget {
+  const EANewsDetailScreen({super.key});
+
   @override
   EANewsDetailScreenState createState() => EANewsDetailScreenState();
 }
@@ -41,7 +43,7 @@ class EANewsDetailScreenState extends State<EANewsDetailScreen> {
               pinned: true,
               backgroundColor: innerBoxIsScrolled ? primaryColor1 : transparentColor,
               forceElevated: innerBoxIsScrolled,
-              iconTheme: IconThemeData(color: white),
+              iconTheme: const IconThemeData(color: white),
               automaticallyImplyLeading: true,
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(
@@ -51,7 +53,7 @@ class EANewsDetailScreenState extends State<EANewsDetailScreen> {
                   ],
                 ),
               ),
-              actions: [IconButton(onPressed: () {}, icon: Icon(AntDesign.sharealt, color: white))],
+              actions: [IconButton(onPressed: () {}, icon: const Icon(AntDesign.sharealt, color: white))],
             ),
           ];
         },
@@ -82,16 +84,16 @@ class EANewsDetailScreenState extends State<EANewsDetailScreen> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: boxDecorationWithRoundedCorners(
                         backgroundColor: primaryColor1,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(8),
                           bottomRight: Radius.circular(8),
                         )),
                     child: Row(
                       children: [
-                        Icon(MaterialCommunityIcons.timer_sand, color: white),
+                        const Icon(MaterialCommunityIcons.timer_sand, color: white),
                         10.width,
                         Text("06 Hrs 27 Mins 44 Secs,", style: primaryTextStyle(color: white)),
                       ],
@@ -107,7 +109,7 @@ class EANewsDetailScreenState extends State<EANewsDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("#cinema #movie", style: secondaryTextStyle()),
-                      Text('\$' + '20', style: boldTextStyle(color: primaryColor1)),
+                      Text('\$' '20', style: boldTextStyle(color: primaryColor1)),
                     ],
                   ),
                   4.height,
@@ -138,19 +140,19 @@ class EANewsDetailScreenState extends State<EANewsDetailScreen> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Entypo.location, size: 16),
+                          const Icon(Entypo.location, size: 16),
                           8.width,
                           Text("93, Bayport Ave South..", style: secondaryTextStyle()),
                         ],
                       ),
-                      Text('8' + 'km', style: secondaryTextStyle(color: primaryColor1)),
+                      Text('8' 'km', style: secondaryTextStyle(color: primaryColor1)),
                     ],
                   ),
                   6.height,
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.local_activity_outlined, size: 16),
+                      const Icon(Icons.local_activity_outlined, size: 16),
                       8.width,
                       Text("19/5k attending", style: secondaryTextStyle()),
                     ],
@@ -160,8 +162,8 @@ class EANewsDetailScreenState extends State<EANewsDetailScreen> {
               16.height,
               ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.only(top: 8),
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.only(top: 8),
                 itemCount: eventList.length,
                 itemBuilder: (context, i) {
                   return Row(

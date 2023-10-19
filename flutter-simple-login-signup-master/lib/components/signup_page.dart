@@ -1,3 +1,4 @@
+import 'package:path/path.dart';
 import 'dart:io';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:login_signup/components/login_page.dart';
 
 import 'package:login_signup/components/common/custom_form_button.dart';
 import 'package:login_signup/components/common/custom_input_field.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -170,12 +173,167 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  void _handleSignupUser() {
-    // signup user
-    if (_signupFormKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Submitting data..')),
+  void _handleSignupUser()  async {
+    // Initialize FFI
+  sqfliteFfiInit();
+
+
+  databaseFactory = databaseFactoryFfi;
+  // Avoid errors caused by flutter upgrade.
+  // Importing 'package:flutter/widgets.dart' is required.
+  WidgetsFlutterBinding.ensureInitialized();
+  // Open the database and store the reference.
+  print(getDatabasesPath());
+  final database = openDatabase(
+    // Set the path to the database. Note: Using the `join` function from the
+    // `path` package is best practice to ensure the path is correctly
+    // constructed for each platform.
+    
+    join(await getDatabasesPath(), 'user.db'),
+    
+    // When the database is first created, create a table to store user.
+    onCreate: (db, version) {
+      // Run the CREATE TABLE statement on the database.
+      return db.execute(
+        'CREATE TABLE User(id INTEGER PRIMARY KEY , name TEXT, email TEXT, phone TEXT, image TEXT)',
       );
-    }
+    },
+    // Set the version. This executes the onCreate function and provides a
+    // path to perform database upgrades and downgrades.
+    version: 1,
+  );
+
+  // Define a function that inserts user into the database
+  Future<void> insertDog(User user) async {
+    // Get a reference to the database.
+    final db = await database;
+
+    // Insert the User into the correct table. You might also specify the
+    // `conflictAlgorithm` to use in case the same user is inserted twice.
+    //
+    // In this case, replace any previous data.
+    await db.insert(
+      'user',
+      user.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  // A method that retrieves all the user from the user table.
+  Future<List<User>> user() async {
+    // Get a reference to the database.
+    final db = await database;
+
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query('user');
+
+    // Convert the List<Map<String, dynamic> into a List<User>.
+    return List.generate(maps.length, (i) {
+      return User(
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        email: maps[i]['email'],
+        image : maps[i]['image'],
+      );
+    });
+  }
+
+  Future<void> updateDog(User user) async {
+    // Get a reference to the database.
+    final db = await database;
+
+    // Update the given User.
+    await db.update(
+      'user',
+      user.toMap(),
+      // Ensure that the User has a matching id.
+      where: 'id = ?',
+      // Pass the User's id as a whereArg to prevent SQL injection.
+      whereArgs: [user.id],
+    );
+  }
+
+  Future<void> deleteDog(int id) async {
+    // Get a reference to the database.
+    final db = await database;
+
+    // Remove the User from the database.
+    await db.delete(
+      'user',
+      // Use a `where` clause to delete a specific user.
+      where: 'id = ?',
+      // Pass the User's id as a whereArg to prevent SQL injection.
+      whereArgs: [id],
+    );
+  }
+
+  // Create a User and add it to the user table
+  var fido = const User(
+    id: 0,
+    name: 'amine',
+    email: 'amine@gmail.com',
+    image:  '//'
+  );
+
+  await insertDog(fido);
+
+  // Now, use the method above to retrieve all the user.
+  print(await user()); // Prints a list that include Fido.
+
+  // Update Fido's age and save it to the database.
+  fido = User(
+    id: fido.id,
+    name: fido.name,
+    email: fido.email, 
+    image: fido.image,
+  );
+  await updateDog(fido);
+
+  // Print the updated results.
+  print(await user()); // Prints Fido with age 42.
+
+  // Delete Fido from the database.
+  await deleteDog(fido.id);
+
+  // Print the list of user (empty).
+  print(await user());
+}
+
+}
+class User {
+  final int id;
+  final String name;
+  final String  email;
+  final String image ; 
+
+  const User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.image , 
+  });
+
+  // Convert a User into a Map. The keys must correspond to the names of the
+  // columns in the database.
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'image' :  image , 
+    };
+  }
+
+  // Implement toString to make it easier to see information about
+  // each user when using the print statement.
+  @override
+  String toString() {
+    return 'User{id: $id, name: $name, email: $email, image: $image }';
   }
 }
+
+
+
+
+
+

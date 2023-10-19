@@ -22,20 +22,20 @@ class _EAIndexScreenState extends State<EAIndexScreen> {
           onPressed: () {
             finish(context);
           },
-          icon: Icon(Icons.arrow_back, color: white),
+          icon: const Icon(Icons.arrow_back, color: white),
         ),
       ),
       body: ListView.separated(
         separatorBuilder:(BuildContext context, int index){
-          return Divider();
+          return const Divider();
         } ,
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         shrinkWrap: true,
         itemCount: inboxList.length,
         itemBuilder: (BuildContext context, int index) {
           EAInboxModel data = inboxList[index];
           return Container(
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

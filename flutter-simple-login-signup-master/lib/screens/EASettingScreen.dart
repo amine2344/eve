@@ -1,6 +1,5 @@
 import 'package:login_signup/screens/PurchaseMoreScreen.dart';
 import 'package:login_signup/utils/EAapp_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 

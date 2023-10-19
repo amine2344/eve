@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -64,14 +63,14 @@ ThemeData blackTheme(Color primaryColor, Color accentColor) =>
         elevation: 0,
       ),
       textTheme: const TextTheme(
-        headline5: TextStyle(color: Colors.white),
-        headline1: TextStyle(color: Colors.white),
-        headline2: TextStyle(color: Colors.white),
-        bodyText1: TextStyle(color: Colors.white),
-        bodyText2: TextStyle(color: Colors.white),
-        caption: TextStyle(color: Colors.white),
-        subtitle1: TextStyle(color: Colors.white),
-        subtitle2: TextStyle(color: Colors.white),
+        headlineSmall: TextStyle(color: Colors.white),
+        displayLarge: TextStyle(color: Colors.white),
+        displayMedium: TextStyle(color: Colors.white),
+        bodyLarge: TextStyle(color: Colors.white),
+        bodyMedium: TextStyle(color: Colors.white),
+        bodySmall: TextStyle(color: Colors.white),
+        titleMedium: TextStyle(color: Colors.white),
+        titleSmall: TextStyle(color: Colors.white),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
@@ -135,7 +134,6 @@ ThemeData lightTheme(Color primaryColor, Color accentColor) =>
           color: primaryColor, elevation: 0, foregroundColor: Colors.white),
       colorScheme:
           ColorScheme.light(secondary: accentColor, primary: primaryColor),
-      toggleableActiveColor: primaryColor,
       primaryColor: primaryColor,
       dialogTheme: const DialogTheme(
           titleTextStyle: TextStyle(
@@ -164,14 +162,14 @@ ThemeData lightTheme(Color primaryColor, Color accentColor) =>
       ),
       iconTheme: const IconThemeData().copyWith(color: Colors.black),
       textTheme: TextTheme(
-        headline5: const TextStyle(color: Colors.black),
-        headline1: const TextStyle(color: Colors.black),
-        headline2: const TextStyle(color: Colors.black),
-        bodyText1: const TextStyle(color: Colors.black),
-        bodyText2: const TextStyle(color: Colors.black),
-        caption: const TextStyle(color: Colors.black),
-        subtitle1: const TextStyle(color: Colors.black),
-        subtitle2: TextStyle(color: Colors.grey[200]),
+        headlineSmall: const TextStyle(color: Colors.black),
+        displayLarge: const TextStyle(color: Colors.black),
+        displayMedium: const TextStyle(color: Colors.black),
+        bodyLarge: const TextStyle(color: Colors.black),
+        bodyMedium: const TextStyle(color: Colors.black),
+        bodySmall: const TextStyle(color: Colors.black),
+        titleMedium: const TextStyle(color: Colors.black),
+        titleSmall: TextStyle(color: Colors.grey[200]),
       ),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: primaryColor,
@@ -213,5 +211,28 @@ ThemeData lightTheme(Color primaryColor, Color accentColor) =>
             },
           ),
         ),
-      ),
+      ), checkboxTheme: CheckboxThemeData(
+ fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+ if (states.contains(MaterialState.disabled)) { return null; }
+ if (states.contains(MaterialState.selected)) { return primaryColor; }
+ return null;
+ }),
+ ), radioTheme: RadioThemeData(
+ fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+ if (states.contains(MaterialState.disabled)) { return null; }
+ if (states.contains(MaterialState.selected)) { return primaryColor; }
+ return null;
+ }),
+ ), switchTheme: SwitchThemeData(
+ thumbColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+ if (states.contains(MaterialState.disabled)) { return null; }
+ if (states.contains(MaterialState.selected)) { return primaryColor; }
+ return null;
+ }),
+ trackColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+ if (states.contains(MaterialState.disabled)) { return null; }
+ if (states.contains(MaterialState.selected)) { return primaryColor; }
+ return null;
+ }),
+ ),
     );

@@ -26,11 +26,11 @@ class _EAProfileTopComponentState extends State<EAProfileTopComponent> {
           alignment: Alignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(right: 16, left: 16, top: 200),
-              padding: EdgeInsets.only(left: 16, right: 16),
+              margin: const EdgeInsets.only(right: 16, left: 16, top: 200),
+              padding: const EdgeInsets.only(left: 16, right: 16),
               width: context.width(),
               decoration: boxDecorationWithRoundedCorners(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
                 boxShadow: defaultBoxShadow(),
               ),
               child: Column(
@@ -48,18 +48,18 @@ class _EAProfileTopComponentState extends State<EAProfileTopComponent> {
 
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                             decoration: boxDecorationWithRoundedCorners(borderRadius: BorderRadius.circular(24), border: Border.all(color: primaryColor1)),
                             child: Text('INBOX', style: primaryTextStyle(color: primaryColor1)),
                           ).onTap(() {
-                            EAIndexScreen().launch(context);
+                            const EAIndexScreen().launch(context);
                           }),
                           Positioned(
                             right: 5,
                             top: -10,
                             child: Container(
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: primaryColor1),
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(shape: BoxShape.circle, color: primaryColor1),
                               child: Text('1', style: secondaryTextStyle(color: white)),
                             ),
                           )
@@ -67,14 +67,14 @@ class _EAProfileTopComponentState extends State<EAProfileTopComponent> {
                       ),
                       16.width,
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                         decoration: boxDecorationWithRoundedCorners(
                           borderRadius: BorderRadius.circular(24),
                           backgroundColor: primaryColor1.withOpacity(0.8),
                         ),
                         child: Text('REWARDS - \$15', style: primaryTextStyle(color: white)),
                       ).onTap(() {
-                        EARewardScreen().launch(context);
+                        const EARewardScreen().launch(context);
                       }),
                     ],
                   ),
@@ -93,7 +93,7 @@ class _EAProfileTopComponentState extends State<EAProfileTopComponent> {
                               TextSpan(text: 'followers', style: secondaryTextStyle()),
                             ],
                           ).onTap(() {
-                            EAConnectionScreen().launch(context);
+                            const EAConnectionScreen().launch(context);
                           }),
                           24.width,
                           createRichText(
@@ -102,7 +102,7 @@ class _EAProfileTopComponentState extends State<EAProfileTopComponent> {
                               TextSpan(text: 'following', style: secondaryTextStyle()),
                             ],
                           ).onTap(() {
-                            EAConnectionScreen().launch(context);
+                            const EAConnectionScreen().launch(context);
                           })
                         ],
                       ),
@@ -117,7 +117,7 @@ class _EAProfileTopComponentState extends State<EAProfileTopComponent> {
                                 isExpand = !isExpand;
                                 setState(() {});
                               },
-                              icon: isExpand ? Icon(Icons.keyboard_arrow_up_outlined) : Icon(Icons.keyboard_arrow_down_sharp)),
+                              icon: isExpand ? const Icon(Icons.keyboard_arrow_up_outlined) : const Icon(Icons.keyboard_arrow_down_sharp)),
                         ],
                       ).expand(),
                     ],

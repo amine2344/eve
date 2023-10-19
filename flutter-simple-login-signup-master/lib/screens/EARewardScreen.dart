@@ -29,16 +29,16 @@ class _EARewardScreenState extends State<EARewardScreen> {
               title: Text("Reward", style: boldTextStyle(color: white)),
               backgroundColor: innerBoxIsScrolled ? primaryColor1 : transparentColor,
               forceElevated: innerBoxIsScrolled,
-              iconTheme: IconThemeData(color: white),
+              iconTheme: const IconThemeData(color: white),
               automaticallyImplyLeading: true,
-              flexibleSpace: FlexibleSpaceBar(
+              flexibleSpace: const FlexibleSpaceBar(
                 background: RewardText(),
               ),
             ),
           ];
         },
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               8.height,
@@ -86,7 +86,7 @@ class _RewardTextState extends State<RewardText> {
         Container(
           height: context.height() * 0.37,
           decoration: boxDecorationWithShadow(
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [
                 primaryColor2,
                 primaryColor1,
@@ -118,7 +118,7 @@ class _RewardTextState extends State<RewardText> {
               decoration: InputDecoration(
                 hintText: "Enter Discount code",
                 isDense: true,
-                contentPadding: EdgeInsets.all(8),
+                contentPadding: const EdgeInsets.all(8),
                 enabled: false,
                 border: InputBorder.none,
                 focusColor: grey.withOpacity(0.4),

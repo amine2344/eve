@@ -1,7 +1,6 @@
 import 'package:login_signup/screens/EADashedBoardScreen.dart';
 import 'package:login_signup/utils/EAColors.dart';
 import 'package:login_signup/utils/EADataProvider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -31,7 +30,7 @@ class _EAWalkThroughScreenState extends State<EAWalkThroughScreen> {
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Container(
+                SizedBox(
                   width: context.width(),
                   height: context.height(),
                   child: PageView.builder(
@@ -49,7 +48,7 @@ class _EAWalkThroughScreenState extends State<EAWalkThroughScreen> {
                   right: 20,
                   top: 40,
                   child: Text('Get Started', style: primaryTextStyle(color: Colors.white)).onTap(() {
-                    EADashedBoardScreen().launch(context);
+                    const EADashedBoardScreen().launch(context);
                   }),
                 ),
                 Column(
@@ -69,26 +68,26 @@ class _EAWalkThroughScreenState extends State<EAWalkThroughScreen> {
                       children: [
                         AppButton(
                           shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          child: Icon(Fontisto.facebook, color: white),
                           elevation: 0.0,
                           width: 150,
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           color: facebook,
                           onTap: () {
-                            EASelectCityScreen().launch(context);
+                            const EASelectCityScreen().launch(context);
                           },
+                          child: const Icon(Fontisto.facebook, color: white),
                         ),
                         16.width,
                         AppButton(
-                          child: Icon(Foundation.social_twitter, color: white),
                           width: 150,
                           shapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                           elevation: 0.0,
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           color: twitter,
                           onTap: () {
-                            EASelectCityScreen().launch(context);
+                            const EASelectCityScreen().launch(context);
                           },
+                          child: const Icon(Foundation.social_twitter, color: white),
                         ),
                       ],
                     ),

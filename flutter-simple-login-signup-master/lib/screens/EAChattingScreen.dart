@@ -10,7 +10,7 @@ class EAChattingScreen extends StatefulWidget {
   // final String? img;
   final String? name;
 
-  EAChattingScreen({this.name});
+  const EAChattingScreen({super.key, this.name});
 
   @override
   EAChattingScreenState createState() => EAChattingScreenState();
@@ -56,7 +56,7 @@ class EAChattingScreenState extends State<EAChattingScreen> {
       FocusScope.of(context).requestFocus(msgFocusNode);
       setState(() {});
 
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       msgListing.insert(0, msgModel1);
 
@@ -82,22 +82,22 @@ class EAChattingScreenState extends State<EAChattingScreen> {
             onPressed: () {
               finish(context);
             },
-            icon: Icon(Icons.arrow_back, color: white)),
+            icon: const Icon(Icons.arrow_back, color: white)),
         center: true,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search, color: white))],
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search, color: white))],
       ),
       body: Stack(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
-            decoration: BoxDecoration(color: white),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+            decoration: const BoxDecoration(color: white),
             child: ListView.separated(
-              separatorBuilder: (_, i) => Divider(color: Colors.transparent),
+              separatorBuilder: (_, i) => const Divider(color: Colors.transparent),
               shrinkWrap: true,
               reverse: true,
               controller: scrollController,
               itemCount: msgListing.length,
-              padding: EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 70),
+              padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 70),
               itemBuilder: (_, index) {
                 EAMessageModel data = msgListing[index];
                 var isMe = data.senderId == EASender_id;
@@ -109,7 +109,7 @@ class EAChattingScreenState extends State<EAChattingScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              padding: EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 8),
+              padding: const EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 8),
               decoration: BoxDecoration(color: white, boxShadow: defaultBoxShadow()),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,7 +130,7 @@ class EAChattingScreenState extends State<EAChattingScreen> {
                     },
                   ).expand(),
                   IconButton(
-                    icon: Icon(Icons.send, size: 25),
+                    icon: const Icon(Icons.send, size: 25),
                     onPressed: () async {
                       sendClick();
                     },

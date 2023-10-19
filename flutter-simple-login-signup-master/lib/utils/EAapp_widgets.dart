@@ -8,7 +8,7 @@ import 'EAColors.dart';
 AppBar getAppBar(String title, {List<Widget>? actions, PreferredSizeWidget? bottom, bool? center, Widget? titleWidget, double? elevation, Widget? backWidget}) {
   return AppBar(
     title: titleWidget ?? Text(title, style: boldTextStyle(color: whiteColor, size: 18)),
-    flexibleSpace: AppBarGradientWidget(),
+    flexibleSpace: const AppBarGradientWidget(),
     actions: actions,
     centerTitle: center,
     leading: backWidget,
@@ -43,7 +43,7 @@ Widget commonCachedNetworkImage(
         return placeHolderWidget(height: height, width: width, fit: fit, alignment: alignment, radius: radius);
       },
       placeholder: (_, s) {
-        if (!usePlaceholderIfUrlEmpty) return SizedBox();
+        if (!usePlaceholderIfUrlEmpty) return const SizedBox();
         return placeHolderWidget(height: height, width: width, fit: fit, alignment: alignment, radius: radius);
       },
     );
@@ -59,12 +59,12 @@ Widget placeHolderWidget({double? height, double? width, BoxFit? fit, AlignmentG
 class AppBarGradientWidget extends StatelessWidget {
   final Widget? child;
 
-  AppBarGradientWidget({this.child});
+  const AppBarGradientWidget({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
             primaryColor1,
@@ -82,10 +82,10 @@ Widget commonButton({double? width, String? btnText}) {
     width: width,
     height: 50,
     alignment: Alignment.center,
-    padding: EdgeInsets.all(8),
+    padding: const EdgeInsets.all(8),
     decoration: boxDecorationRoundedWithShadow(
       24,
-      gradient: LinearGradient(
+      gradient: const LinearGradient(
         colors: [
           primaryColor1,
           primaryColor2,
@@ -113,14 +113,14 @@ class ChatMessageWidget1 extends StatelessWidget {
       crossAxisAlignment: isMe.validate() ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
           margin: isMe.validate() ? EdgeInsets.only(top: 3.0, bottom: 3.0, right: 0, left: (500 * 0.25).toDouble()) : EdgeInsets.only(top: 4.0, bottom: 4.0, left: 0, right: (500 * 0.25).toDouble()),
           decoration: BoxDecoration(
             color: !isMe ? primaryColor1 : white,
             boxShadow: defaultBoxShadow(),
             borderRadius: isMe.validate()
-                ? BorderRadius.only(bottomLeft: Radius.circular(10), topLeft: Radius.circular(10), topRight: Radius.circular(10))
-                : BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10), topRight: Radius.circular(10)),
+                ? const BorderRadius.only(bottomLeft: Radius.circular(10), topLeft: Radius.circular(10), topRight: Radius.circular(10))
+                : const BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10), topRight: Radius.circular(10)),
             border: Border.all(color: isMe ? Theme.of(context).dividerColor : Colors.transparent),
           ),
           child: Column(

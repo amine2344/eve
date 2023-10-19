@@ -1,18 +1,16 @@
-import 'package:login_signup/screens/EANewsList.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:login_signup/screens/EAHomeScreen.dart';
 import 'package:login_signup/screens/settings_screen.dart';
 import 'package:login_signup/screens/EAProfileScreen.dart';
 import 'package:login_signup/utils/EAColors.dart';
 
-import 'EASearchScreen.dart';
 
 class EADashedBoardScreen extends StatefulWidget {
   final String? name;
 
-  EADashedBoardScreen({this.name});
+  const EADashedBoardScreen({super.key, this.name});
 
   @override
   EADashedBoardScreenState createState() => EADashedBoardScreenState();
@@ -20,42 +18,61 @@ class EADashedBoardScreen extends StatefulWidget {
 
 class EADashedBoardScreenState extends State<EADashedBoardScreen> {
   int _selectedIndex = 1;
-  List<Widget> _pages = [];
-
+  final List<Widget> _pages = [];
+  int index = 1 ; 
   @override
   void initState() {
     super.initState();
     init();
-    _pages.add(SettingsScreen());
+    _pages.add(const SettingsScreen());
     _pages.add(EAHomeScreen(name: widget.name));
   //  _pages.add(EASearchScreen());
    // _pages.add(EANewsList());
     
-    _pages.add(EAProfileScreen());
+    _pages.add(const EAProfileScreen());
   }
 
   Widget _bottomTab() {
-    return BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
-      selectedFontSize: 0,
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: primaryColor1,
-      unselectedItemColor: black,
-      items: <BottomNavigationBarItem>[
+    return  CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.settings),
+            label: 'settings',
+
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.news),
+            label: 'events',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.profile_circled),
+            label: 'profile',
+            
+          ),
+         
+         
+        ],
+      ),
+      tabBuilder: (BuildContext context,  index ) {
         
-       // BottomNavigationBarItem(icon: Icon(LineIcons.search, size: 28), label: ''),
-       // BottomNavigationBarItem(icon: Icon(LineIcons.newspaper, size: 28), label: ''),
-        BottomNavigationBarItem(icon: Icon(LineIcons.wrench, size: 28), label: ''),
-        BottomNavigationBarItem(icon: Icon(LineIcons.newspaper, size: 28), label: ''),
-        BottomNavigationBarItem(icon: Icon(LineIcons.user, size: 28), label: ''),
-      ],
+        return CupertinoTabView(
+          builder: (BuildContext context) {
+            return Center(
+              child: _pages.elementAt(index)
+            );
+          },
+        );
+      },
     );
   }
 
+
+  
+
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = index  ;
     });
   }
 
@@ -70,9 +87,21 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String hexcolor =  "#ed3269";
     return Scaffold(
+      appBar: AppBar(
+        title: Text("All Events"),
+        backgroundColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
+      ),
       bottomNavigationBar: _bottomTab(),
-      body: Center(child: _pages.elementAt(_selectedIndex)),
+      body: Center(child: _pages.elementAt(_selectedIndex), 
+            
+      
+      ),
+
+        backgroundColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
+      
+      
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EASearchPeopleScreen extends StatefulWidget {
+  const EASearchPeopleScreen({super.key});
+
   @override
   EASearchPeopleScreenState createState() => EASearchPeopleScreenState();
 }
@@ -39,7 +41,7 @@ class EASearchPeopleScreenState extends State<EASearchPeopleScreen> {
             onPressed: () {
               finish(context);
             },
-            icon: Icon(Icons.arrow_back, color: white)),
+            icon: const Icon(Icons.arrow_back, color: white)),
         center: true,
       ),
       body: SingleChildScrollView(
@@ -48,14 +50,14 @@ class EASearchPeopleScreenState extends State<EASearchPeopleScreen> {
             Container(
               height: 50,
               decoration: boxDecorationWithShadow(backgroundColor: white, shadowColor: grey.withOpacity(0.3)),
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: TextFormField(
                 controller: searchController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  prefixIcon: Icon(Icons.search, size: 24, color: black),
-                  suffixIcon: Icon(Icons.close, size: 24, color: primaryColor1).onTap(
+                  prefixIcon: const Icon(Icons.search, size: 24, color: black),
+                  suffixIcon: const Icon(Icons.close, size: 24, color: primaryColor1).onTap(
                     () {
                       searchController.clear();
                     },
@@ -64,14 +66,14 @@ class EASearchPeopleScreenState extends State<EASearchPeopleScreen> {
               ),
             ),
             ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(8),
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(8),
               shrinkWrap: true,
               itemCount: list.length,
               itemBuilder: (BuildContext context, int index) {
                 EAForYouModel data = list[index];
                 return Container(
-                  margin: EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
