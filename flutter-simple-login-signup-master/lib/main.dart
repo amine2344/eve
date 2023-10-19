@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup/components/login_page.dart';
+import 'package:login_signup/utils/theme_data.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -18,18 +19,17 @@ void main() async {
 late _MyAppState settingUI;
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-
   
   @override
   Widget build(BuildContext context) {
-   return AdaptiveTheme(
-      light: ThemeData.light(useMaterial3: true),
-      dark: ThemeData.dark(useMaterial3: true),
-      initial: AdaptiveThemeMode.dark,
+   return MaterialApp(
+     /*  light: blackTheme(Colors.black, Colors.white),
+      dark: lightTheme(Colors.white, Colors.black),
+      initial: AdaptiveThemeMode.dark, */
       builder: (theme, darkTheme) => MaterialApp(
         
-        theme: theme,
-        darkTheme: darkTheme,
+     /*    theme: theme,
+        darkTheme: darkTheme, */
         home: LoginPage(),
       ),
     );
@@ -41,8 +41,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Color primaryColor = Colors.blueAccent;
-  Color accentColor = Colors.blueAccent;
+  Color primaryColor = Colors.blue;
+  Color accentColor = Colors.blue;
   bool isDarkMode = true;
 
   void callSetState() {
@@ -54,14 +54,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     settingUI = this;
-     return AdaptiveTheme(
-      light: ThemeData.light(useMaterial3: true),
-      dark: ThemeData.dark(useMaterial3: true),
-      initial: AdaptiveThemeMode.dark,
+     return MaterialApp(
+     /*  light: lightTheme(Colors.white, Colors.black),
+      dark: blackTheme(Colors.black, Colors.white),
+      initial: AdaptiveThemeMode.dark, */
       builder: (theme, darkTheme) => MaterialApp(
         title: 'Setting ui',
-        theme: theme,
-        darkTheme: darkTheme,
+        /* theme: theme,
+        darkTheme: darkTheme, */
         home: LoginPage(),
       ),
     );

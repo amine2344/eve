@@ -85,10 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile(
                           onPressed: (_) { 
-                            
- 
-
-                      },
+                          },
               title: 'log out',
               
               leading: const Icon(CupertinoIcons.back),
