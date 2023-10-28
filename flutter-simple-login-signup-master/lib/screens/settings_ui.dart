@@ -5,8 +5,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-/* import 'package:keepsettings/keepsettings.dart';
- */
+import 'package:keepsettings/keepsettings.dart';
 import 'package:login_signup/main.dart';
 import 'package:login_signup/utils/color_picker.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
@@ -40,13 +39,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
    Scaffold(
      
      
-     /*  body: SafeArea(
+      body: SafeArea(
         child: settingsList(),
-      ), */
+      ),
     );
   }
 
-  /* Widget settingsList() {
+  Widget settingsList() {
     String hexcolor =  "#ed3269";
     
     return 
@@ -115,7 +114,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
         ),
-    */    /*  SliderSection(
+       /*  SliderSection(
           slider: SliderTile(
             initialSliderValue: initialValue,
             onSliderChange: (value) {
@@ -151,10 +150,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
         ), */
-   /*    ],
+      ],
     );
-  } */
-/* 
+  }
+
   // ignore: avoid_positional_boolean_parameters
   Future<void> toggleDarkMode(bool value) async {
     doSomething(value);
@@ -205,11 +204,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
    
 );
   
-   */
+  
   }
 
   // ignore: avoid_positional_boolean_parameters
- /*  void onTileChanged(bool? value) {
+  void onTileChanged(bool? value) {
     doSomething(value);
 
     setState(() {
@@ -234,8 +233,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       }
     });
   }
- */
-  /* Future<void> colorPicker(List<Color> appColors, onColorChange) async {
+
+  Future<void> colorPicker(List<Color> appColors, onColorChange) async {
     final status = await showDialog(
           barrierDismissible: true,
           context: context,
@@ -275,14 +274,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
     settingUI.callSetState();
   }
- *//* 
+
   void log_out(BuildContext context) {
   // Use Navigator to pop all routes on the stack
   Navigator.of(context).popUntil((route) => route.isFirst);
   // Push the login page route
   Navigator.pushReplacementNamed(context, 'login');
   }
-} */
+}
 void showLanguagePicker(BuildContext context) {
   int selectedLanguageIndex = 0; // Initialize with the index of the current language
   showDialog(
@@ -362,7 +361,7 @@ class MyAlertDialog extends StatelessWidget {
         actions: actions,
       );
 }
-/* 
+
 List<Color> primaryColors = <Color>[
   Colors.red,
   Colors.pink,
@@ -379,8 +378,8 @@ List<Color> primaryColors = <Color>[
   Colors.grey,
   Colors.blueGrey,
   Colors.black,
-]; */
-/* 
+];
+
 List<Color> accentColors = <Color>[
   Colors.redAccent,
   Colors.pinkAccent,
@@ -395,4 +394,4 @@ List<Color> accentColors = <Color>[
   Colors.lightBlueAccent,
   Colors.amberAccent,
   const Color(0xFFFF7582),
-]; */
+];
