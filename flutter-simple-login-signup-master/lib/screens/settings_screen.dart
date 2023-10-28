@@ -1,322 +1,68 @@
-
-
-
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:keepsettings/keepsettings.dart';
-import 'package:login_signup/components/login_page.dart';
-import 'package:login_signup/main.dart';
-import 'package:login_signup/utils/color_picker.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:login_signup/screens/settings_ui.dart';
 
 
-enum RadioButtonOptions { op1, op2, op3 }
+class Settings_i extends StatefulWidget {
+  final String? name;
 
-
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const Settings_i({super.key, this.name});
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  _Settings_i createState() => _Settings_i();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool tileManager = settingUI.isDarkMode;
-  var initialRadioChoice = RadioButtonOptions.op2;
-  var checkBoxManager = true;
-  var tile1 = false ;
-  var tile2 = false ;
-  // Color iconColor = Colors.black;
-  double sliderCurVal = 20;
-  var initialValue = 20.0;
+class _Settings_i extends State<Settings_i> {
+
+
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  Future<void> init() async {
+    //
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) super.setState(fn);
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-     
-     
-      body: SafeArea(
-        child: settingsList(),
-      ),
-    );
-  }
+    final Brightness brightness = CupertinoTheme.brightnessOf(context);
 
-  Widget settingsList() {
-    String hexcolor =  "#ed3269";
-    
-    return SettingsList(
-      
-      sections: [
-        TilesSection(
-          
-          tiles: [
+    return CupertinoPageScaffold(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          CupertinoSliverNavigationBar(
             
-            SettingsTile(
-              title: 'Language',
-              
-              leading: const Icon(Icons.language),
-              trailing: languageTrailing(),
+            border: Border(
+              bottom: BorderSide(
+                color: brightness == Brightness.light
+                    ? CupertinoColors.black
+                    : CupertinoColors.white,
+              ),
             ),
-            SettingsTile.switchTile(
-              title: 'Notification Push',
-              leading: const Icon(CupertinoIcons.bell),
-              switchActiveColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
-              switchValue: tile1,
-              
-              onToggle: Notify,
-            ),
-           
-           
-            SettingsTile.switchTile(
-              title: ' Dark Mode',
-              subtitle: 'Save your eyes',
-              leading: const Icon(CupertinoIcons.cloud_sun),
-              switchActiveColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
-              switchValue: tile2,
-              onToggle: toggleDarkMode,
-
-            ),
-            SettingsTile.checkListTile(
-              leading: const Icon(EvaIcons.clock),
-              onChanged: onCheckChanged,
-              enabled: checkBoxManager,
-              title: 'Slow Down Animations',
-            ),
-            SettingsTile(
-                          onPressed: (_) { 
-                          },
-              title: 'log out',
-              
-              leading: const Icon(CupertinoIcons.back),
-            ),
-          ],
-        ),
-       /*  SliderSection(
-          slider: SliderTile(
-            initialSliderValue: initialValue,
-            onSliderChange: (value) {
-              setState(() {
-                initialValue = value;
-              });
-            },
-            min: 0,
-            max: 100,
+            // The middle widget is visible in both collapsed and expanded states.
+            middle: const Text(' '),
+            // When the "middle" parameter is implemented, the largest title is only visible
+            // when the CupertinoSliverNavigationBar is fully expanded.
+            largeTitle: const Text('Settings'),
           ),
-          title: 'Slider',
-        ), */
-        /* RadioButtonSection(
-          title: 'Radio Button',
-          tiles: [
-            RadioButton<RadioButtonOptions>(
-              label: 'Monthly',
-              value: RadioButtonOptions.op1,
-              groupValue: initialRadioChoice,
-              onChanged: onRadioChanged,
-            ),
-            RadioButton<RadioButtonOptions>(
-              label: 'Yearly',
-              value: RadioButtonOptions.op2,
-              groupValue: initialRadioChoice,
-              onChanged: onRadioChanged,
-            ),
-            RadioButton<RadioButtonOptions>(
-              label: 'Life Time',
-              value: RadioButtonOptions.op3,
-              groupValue: initialRadioChoice,
-              onChanged: onRadioChanged,
-            ),
-          ],
-        ), */
-      ],
-    );
-  }
-
-  // ignore: avoid_positional_boolean_parameters
-  Future<void> toggleDarkMode(bool value) async {
-    doSomething(value);
-    setState(() {
-      settingUI.isDarkMode ?      AdaptiveTheme.of(context).setDark() : AdaptiveTheme.of(context).setLight();
-      tile2 =  !tile2; 
-      // sets theme mode to dark
-    });
-    settingUI.callSetState();
-  }  Future<void> Notify(bool value) async {
-    doSomething(value);
-    setState(() {
-
-      tile1 =  !tile1; 
-      // sets theme mode to dark
-    });
-    settingUI.callSetState();
-  }
-
-  Widget languageTrailing() {
-    return PopupMenuButton(
-      icon: Icon(Icons.arrow_drop_down,
-          color: Theme.of(context).colorScheme.secondary),
-      iconSize: 30,
-      onSelected: doSomething,
-      itemBuilder: (_) => supportedLanguages
-          .map(
-            (e) => PopupMenuItem(
-              value: e,
-              child: Text(e.name),
-            ),
-          )
-          .toList(),
-    );
-  }
-
-  final supportedLanguages = <LanguageData>[
-    LanguageData('🇺🇸', 'English', 'en'),
-    LanguageData('in', 'Hindi', 'hi'),
-  ];
-
-  void doSomething(value) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text('You did something'),
+          const SliverFillRemaining(
+            child:  Center(
+              child:  SettingsScreen(),
+            )
+            
+          ),
+        ],
       ),
     );
   }
-
-  // ignore: avoid_positional_boolean_parameters
-  void onTileChanged(bool? value) {
-    doSomething(value);
-
-    setState(() {
-      tileManager = !tileManager;
-    });
-  }
-
-  // ignore: avoid_positional_boolean_parameters
-  void onCheckChanged(bool? value) {
-    doSomething(value);
-
-    setState(() {
-      checkBoxManager = !checkBoxManager;
-    });
-  }
-
-  void onRadioChanged(RadioButtonOptions? value) {
-    doSomething(value);
-    setState(() {
-      if (value != null) {
-        initialRadioChoice = value;
-      }
-    });
-  }
-
-  Future<void> colorPicker(List<Color> appColors, onColorChange) async {
-    final status = await showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => MyAlertDialog(
-            title: const Text('Pick Color'),
-            content: SingleChildScrollView(
-              child: ColorPicker(
-                availableColors: appColors,
-                pickerColor: Colors.deepOrangeAccent,
-                onColorChanged: onColorChange,
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: const Text('Done'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-    if (status) {}
-  }
-
-  void onPrimaryColorChange(Color value) {
-    setState(() {
-      settingUI.primaryColor = value;
-    });
-    settingUI.callSetState();
-  }
-
-  void onAccentColorChange(Color value) {
-    setState(() {
-      settingUI.accentColor = value;
-    });
-    settingUI.callSetState();
-  }
 }
-
-class LanguageData {
-  LanguageData(this.flag, this.name, this.languageCode);
-
-  final String flag;
-  final String name;
-  final String languageCode;
-}
-
-class MyAlertDialog extends StatelessWidget {
-  const MyAlertDialog({
-    required this.content,
-    required this.title,
-    this.actions,
-    Key? key,
-  }) : super(key: key);
-
-  final Widget title;
-  final List<Widget>? actions;
-  final Widget content;
-
-  @override
-  Widget build(BuildContext context) => AlertDialog(
-        title: Center(child: title),
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: Theme.of(context).iconTheme.color!.withOpacity(0.1),
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        content: content,
-        actions: actions,
-      );
-}
-
-List<Color> primaryColors = <Color>[
-  Colors.red,
-  Colors.pink,
-  Colors.purple,
-  Colors.deepPurple,
-  Colors.blue,
-  Colors.indigo,
-  Colors.cyan,
-  Colors.teal,
-  Colors.orange,
-  Colors.deepOrange,
-  Colors.amber,
-  Colors.brown,
-  Colors.grey,
-  Colors.blueGrey,
-  Colors.black,
-];
-
-List<Color> accentColors = <Color>[
-  Colors.redAccent,
-  Colors.pinkAccent,
-  Colors.purpleAccent,
-  Colors.deepPurpleAccent,
-  Colors.blueAccent,
-  Colors.indigoAccent,
-  Colors.cyanAccent,
-  Colors.tealAccent,
-  Colors.orangeAccent,
-  Colors.deepOrangeAccent,
-  Colors.lightBlueAccent,
-  Colors.amberAccent,
-  const Color(0xFFFF7582),
-];

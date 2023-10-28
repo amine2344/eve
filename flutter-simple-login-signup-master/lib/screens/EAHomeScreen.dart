@@ -1,12 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:login_signup/screens/EAForYouTabScreen.dart';
 import 'package:login_signup/screens/PurchaseMoreScreen.dart';
-import 'package:login_signup/utils/EAColors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:nb_utils/nb_utils.dart';
 
-import 'EAFilterScreen.dart';
 
 class EAHomeScreen extends StatefulWidget {
   final String? name;
@@ -61,7 +57,7 @@ class EAHomeScreenState extends State<EAHomeScreen> {
               ),
             ),
             // The middle widget is visible in both collapsed and expanded states.
-            middle: const Text('Events For You '),
+            middle: const Text(' '),
             // When the "middle" parameter is implemented, the largest title is only visible
             // when the CupertinoSliverNavigationBar is fully expanded.
             largeTitle: const Text('All Events'),

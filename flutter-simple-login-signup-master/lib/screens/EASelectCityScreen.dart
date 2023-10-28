@@ -7,7 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'EASelectHashtagScreen.dart';
 
 class EASelectCityScreen extends StatefulWidget {
-  const EASelectCityScreen({Key? key}) : super(key: key);
+  const EASelectCityScreen({super.key});
 
   @override
   _EASelectCityScreenState createState() => _EASelectCityScreenState();

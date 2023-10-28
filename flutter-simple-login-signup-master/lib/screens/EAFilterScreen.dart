@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EAFilterScreen extends StatefulWidget {
-  const EAFilterScreen({Key? key}) : super(key: key);
+  const EAFilterScreen({super.key});
 
   @override
   _EAFilterScreenState createState() => _EAFilterScreenState();

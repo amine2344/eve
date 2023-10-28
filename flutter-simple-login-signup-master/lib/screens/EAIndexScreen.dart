@@ -5,7 +5,7 @@ import 'package:login_signup/utils/EADataProvider.dart';
 import 'package:login_signup/utils/EAapp_widgets.dart';
 
 class EAIndexScreen extends StatefulWidget {
-  const EAIndexScreen({Key? key}) : super(key: key);
+  const EAIndexScreen({super.key});
 
   @override
   _EAIndexScreenState createState() => _EAIndexScreenState();

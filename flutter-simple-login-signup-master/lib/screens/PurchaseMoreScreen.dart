@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class PurchaseMoreScreen extends StatefulWidget {
-  const PurchaseMoreScreen({Key? key}) : super(key: key);
+  const PurchaseMoreScreen({super.key});
 
   @override
   _PurchaseMoreScreenState createState() => _PurchaseMoreScreenState();

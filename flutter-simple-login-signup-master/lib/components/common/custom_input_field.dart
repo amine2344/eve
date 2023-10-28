@@ -7,16 +7,19 @@ class CustomInputField extends StatefulWidget {
   final bool suffixIcon;
   final bool? isDense;
   final bool obscureText;
+  final TextEditingController controller; // Add a TextEditingController
+
 
   const CustomInputField({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.hintText,
     required this.validator,
     this.suffixIcon = false,
     this.isDense,
-    this.obscureText = false
-  }) : super(key: key);
+    this.obscureText = false, 
+    required this.controller
+  });
 
   @override
   State<CustomInputField> createState() => _CustomInputFieldState();
@@ -36,17 +39,19 @@ class _CustomInputFieldState extends State<CustomInputField> {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(widget.labelText, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+            child: Text(widget.labelText, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),),
           ),
           TextFormField(
+            controller: widget.controller, style: const TextStyle(color: Colors.white),
             obscureText: (widget.obscureText && _obscureText),
             decoration: InputDecoration(
               isDense: (widget.isDense != null) ? widget.isDense : false,
-              hintText: widget.hintText,
+              hintText: widget.hintText,fillColor: Colors.white,
+              hintStyle: const TextStyle(color: Colors.grey, ),
               suffixIcon: widget.suffixIcon ? IconButton(
                 icon: Icon(
                   _obscureText ? Icons.remove_red_eye : Icons.visibility_off_outlined,
-                  color: Colors.black54,
+                  color: Colors.white10,
                 ),
                 onPressed: () {
                   setState(() {

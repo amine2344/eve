@@ -16,8 +16,7 @@ class ColorPicker extends StatefulWidget {
       required this.availableColors,
       this.layoutBuilder = defaultLayoutBuilder,
       this.itemBuilder = defaultItemBuilder,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   final Color pickerColor;
   final ValueChanged<Color> onColorChanged;

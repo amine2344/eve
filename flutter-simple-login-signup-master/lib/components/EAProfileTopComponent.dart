@@ -8,7 +8,7 @@ import 'package:login_signup/utils/EAImages.dart';
 import 'package:login_signup/utils/EAapp_widgets.dart';
 
 class EAProfileTopComponent extends StatefulWidget {
-  const EAProfileTopComponent({Key? key}) : super(key: key);
+  const EAProfileTopComponent({super.key});
 
   @override
   _EAProfileTopComponentState createState() => _EAProfileTopComponentState();

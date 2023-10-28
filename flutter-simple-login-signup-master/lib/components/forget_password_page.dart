@@ -1,13 +1,17 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup/components/common/custom_form_button.dart';
 import 'package:login_signup/components/common/page_header.dart';
 import 'package:login_signup/components/common/page_heading.dart';
-import 'package:login_signup/components/login_page.dart';
 import 'package:login_signup/components/common/custom_input_field.dart';
+import 'package:login_signup/components/login_page.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
-  const ForgetPasswordPage({Key? key}) : super(key: key);
+
+
+  const ForgetPasswordPage({super.key});
 
   @override
   State<ForgetPasswordPage> createState() => _ForgetPasswordPageState();
@@ -16,12 +20,47 @@ class ForgetPasswordPage extends StatefulWidget {
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
   final _forgetPasswordFormKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  
+  
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+
+    super.dispose();
+  }
+
+  Future password_reset()  async{ 
+    try {
+          await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text.trim());
+           showDialog(context: context, builder: (context) {
+          return     CupertinoAlertDialog(
+        title: const Text('Congratulation '),
+        content:  Text("Email sent, Check your email account "),
+        
+        
+          );});
+    } on FirebaseException catch (e) {
+        print(e);
+        // ignore: use_build_context_synchronously
+        showDialog(context: context, builder: (context) {
+          return     CupertinoAlertDialog(
+        title: const Text('Alert '),
+        content:  Text(e.message.toString()),
+        
+        
+      );
+    
+        });
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffEEF1F3),
+        backgroundColor: Colors.grey[400],
         body: Column(
           children: [
             const PageHeader(),
@@ -31,13 +70,16 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20),),
                 ),
-                child: SingleChildScrollView(
+                child:Container(color: Colors.grey[400],child:  SingleChildScrollView(
+                  
                   child: Form(
+                  
                     key: _forgetPasswordFormKey,
                     child: Column(
                       children: [
                         const PageHeading(title: 'Forgot password',),
                         CustomInputField(
+                            controller: _emailController,
                             labelText: 'Email',
                             hintText: 'Your email id',
                             isDense: true,
@@ -52,14 +94,15 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                             }
                         ),
                         const SizedBox(height: 20,),
-                        CustomFormButton(innerText: 'Submit', onPressed: _handleForgetPassword,),
+                        CustomFormButton(innerText: 'Submit', onPressed: password_reset),
                         const SizedBox(height: 20,),
                         Container(
                           alignment: Alignment.center,
                           child: GestureDetector(
-                            onTap: () => {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()))
-                            },
+                            onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context){
+                                      return LoginPage(onTap: () {  },); 
+                                  },),) ;
+                                  },
                             child: const Text(
                               'Back to login',
                               style: TextStyle(
@@ -75,19 +118,15 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   ),
                 ),
               ),
-            ),
+            ),),
+          
           ],
+          
         ),
       ),
     );
   }
 
-  void _handleForgetPassword() {
-    // forget password
-    if (_forgetPasswordFormKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Submitting data..')),
-      );
-    }
-  }
+ 
+ 
 }

@@ -7,7 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'EAFilterScreen.dart';
 
 class EASearchScreen extends StatefulWidget {
-  const EASearchScreen({Key? key}) : super(key: key);
+  const EASearchScreen({super.key});
 
   @override
   EASearchScreenState createState() => EASearchScreenState();

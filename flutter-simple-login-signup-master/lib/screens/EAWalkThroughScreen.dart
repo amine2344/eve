@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'EASelectCityScreen.dart';
 
 class EAWalkThroughScreen extends StatefulWidget {
-  const EAWalkThroughScreen({Key? key}) : super(key: key);
+  const EAWalkThroughScreen({super.key});
 
   @override
   _EAWalkThroughScreenState createState() => _EAWalkThroughScreenState();

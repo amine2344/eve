@@ -2,7 +2,7 @@ import 'package:login_signup/screens/PurchaseMoreScreen.dart';
 import 'package:flutter/material.dart';
 
 class EATomorrowTicketScreen extends StatefulWidget {
-  const EATomorrowTicketScreen({Key? key}) : super(key: key);
+  const EATomorrowTicketScreen({super.key});
 
   @override
   _EATomorrowTicketScreenState createState() => _EATomorrowTicketScreenState();

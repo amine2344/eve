@@ -6,7 +6,7 @@ import 'package:login_signup/utils/EAColors.dart';
 import 'package:login_signup/utils/EADataProvider.dart';
 
 class EAFollowersScreen extends StatefulWidget {
-  const EAFollowersScreen({Key? key}) : super(key: key);
+  const EAFollowersScreen({super.key});
 
   @override
   _EAFollowersScreenState createState() => _EAFollowersScreenState();

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EAFollowingScreen extends StatefulWidget {
-  const EAFollowingScreen({Key? key}) : super(key: key);
+  const EAFollowingScreen({super.key});
 
   @override
   _EAFollowingScreenState createState() => _EAFollowingScreenState();

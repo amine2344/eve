@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EAReviewScreen extends StatefulWidget {
-  const EAReviewScreen({Key? key}) : super(key: key);
+  const EAReviewScreen({super.key});
 
   @override
   _EAReviewScreenState createState() => _EAReviewScreenState();

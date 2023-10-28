@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EASettingScreen extends StatefulWidget {
-  const EASettingScreen({Key? key}) : super(key: key);
+  const EASettingScreen({super.key});
 
   @override
   _EASettingScreenState createState() => _EASettingScreenState();

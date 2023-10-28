@@ -8,7 +8,7 @@ import 'EATodayTicketScreen.dart';
 import 'EATomorrowTicketScreen.dart';
 
 class EATicketDetailScreen extends StatefulWidget {
-  const EATicketDetailScreen({Key? key}) : super(key: key);
+  const EATicketDetailScreen({super.key});
 
   @override
   _EATicketDetailScreenState createState() => _EATicketDetailScreenState();

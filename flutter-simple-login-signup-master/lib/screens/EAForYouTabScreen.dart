@@ -1,5 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:login_signup/main.dart';
 import 'package:login_signup/utils/EAColors.dart';
 import 'package:login_signup/utils/EADataProvider.dart';
 import 'package:flutter/material.dart';

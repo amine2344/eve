@@ -1,20 +1,23 @@
-import 'package:path/path.dart';
+
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:login_signup/components/common/page_header.dart';
 import 'package:login_signup/components/common/page_heading.dart';
-import 'package:login_signup/components/login_page.dart';
 
 import 'package:login_signup/components/common/custom_form_button.dart';
 import 'package:login_signup/components/common/custom_input_field.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:login_signup/components/login_page.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+  final  Function()? onTap;
+  const SignupPage({super.key, required  this.onTap});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -26,50 +29,101 @@ class _SignupPageState extends State<SignupPage> {
 
   final _signupFormKey = GlobalKey<FormState>();
 
-  Future _pickProfileImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(image == null) return;
 
-      final imageTemporary = File(image.path);
-      setState(() => _profileImage = imageTemporary);
-    } on PlatformException catch (e) {
-      debugPrint('Failed to pick image error: $e');
-    }
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
+  final TextEditingController _contactController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+ final TextEditingController _lastnameController = TextEditingController();
+ final TextEditingController _whatsappController = TextEditingController();
+ final TextEditingController _instaController = TextEditingController();
+ final TextEditingController _ProfessionController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passController.dispose();
+    _contactController.dispose();
+    _nameController.dispose();
+    _lastnameController.dispose();
+    _whatsappController.dispose();
+    _ProfessionController.dispose();
+    _instaController.dispose();
+    super.dispose();
   }
+  Uint8List? _image ;
+  void selectimage () async { 
+    Uint8List img = await  _pickProfileImage(ImageSource.gallery);
+    _image  = img ; 
+  }
+ Future _pickProfileImage(ImageSource source ) async {
+    final ImagePicker _imagepicker = ImagePicker() ; 
+    XFile? file = await _imagepicker.pickImage(source:  source ); 
+    if (file!= null ){
+      return await file.readAsBytes() ; 
+    }
+    print("no images selected ! ") ; 
+}
+Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
+  try {
+    final firebaseStorageRef = FirebaseStorage.instance.ref().child('profile_images/${_emailController.text.trim()}.png');
+    // You can change the 'profile_images' folder to your desired folder name.
+
+    // Convert Uint8List to PNG image
+    final metadata = SettableMetadata(contentType: 'image/png');
+
+    // Upload the file with specified metadata
+    await firebaseStorageRef.putData(imageBytes, metadata);
+
+    final imageUrl = await firebaseStorageRef.getDownloadURL();
+    return imageUrl;
+  } catch (e) {
+    debugPrint('Failed to upload image to Firestore: $e');
+    return '';
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffEEF1F3),
+
+        
         body: SingleChildScrollView(
+          
           child: Form(
             key: _signupFormKey,
             child: Column(
               children: [
-                const PageHeader(),
+                
                 Container(
                   decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20),),
-                  ),
+          image: DecorationImage(
+            image: AssetImage("images/back1.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
                   child: Column(
                     children: [
+                    
                       const PageHeading(title: 'Sign-up',),
                       SizedBox(
                         width: 130,
                         height: 130,
+                        
                         child: CircleAvatar(
-                          backgroundColor: Colors.grey.shade200,
-                          backgroundImage: _profileImage != null ? FileImage(_profileImage!) : null,
+                          backgroundColor: const Color.fromARGB(255, 22, 22, 22),
+                          backgroundImage: _image != null ? MemoryImage(_image!) : null,
+                          
                           child: Stack(
                             children: [
                               Positioned(
                                 bottom: 5,
                                 right: 5,
                                 child: GestureDetector(
-                                  onTap: _pickProfileImage,
+                                  onTap: selectimage,
                                   child: Container(
                                     height: 50,
                                     width: 50,
@@ -92,21 +146,75 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       const SizedBox(height: 16,),
                       CustomInputField(
-                          labelText: 'Name',
-                          hintText: 'Your name',
+                          controller: _nameController,
+                          labelText: 'First Name',
+                          
+                          hintText: 'Your first name',
                           isDense: true,
                           validator: (textValue) {
                             if(textValue == null || textValue.isEmpty) {
                               return 'Name field is required!';
                             }
                             return null;
+                            
+                          }
+                      ),
+                      const SizedBox(height: 16,),
+                        CustomInputField(
+                          controller: _lastnameController,
+                          labelText: 'Last Name',
+                          
+                          hintText: 'Your last name',
+                          isDense: true,
+                          validator: (textValue) {
+                            if(textValue == null || textValue.isEmpty) {
+                              return 'Name field is required!';
+                            }
+                            return null;
+                            
+                          }
+                      ),
+                      const SizedBox(height: 16,),
+                      const SizedBox(height: 16,),
+                        CustomInputField(
+                          controller: _instaController,
+                          labelText: 'Instagram Id',
+                          
+                          hintText: 'Your instagram id ',
+                          isDense: true,
+                          validator: (textValue) {
+                            if(textValue == null || textValue.isEmpty) {
+                              return 'Name field is required!';
+                            }
+                            return null;
+                            
+                          }
+                      ),
+                      const SizedBox(height: 16,),
+
+                      const SizedBox(height: 16,),
+                        CustomInputField(
+                          controller: _ProfessionController,
+                          labelText: 'Profession',
+                          
+                          hintText: 'Your profession',
+                          isDense: true,
+                          validator: (textValue) {
+                            if(textValue == null || textValue.isEmpty) {
+                              return 'Name field is required!';
+                            }
+                            return null;
+                            
                           }
                       ),
                       const SizedBox(height: 16,),
                       CustomInputField(
+                          controller: _emailController,
                           labelText: 'Email',
+                          
                           hintText: 'Your email id',
                           isDense: true,
+
                           validator: (textValue) {
                             if(textValue == null || textValue.isEmpty) {
                               return 'Email is required!';
@@ -115,22 +223,42 @@ class _SignupPageState extends State<SignupPage> {
                               return 'Please enter a valid email';
                             }
                             return null;
+                            
                           }
                       ),
                       const SizedBox(height: 16,),
                       CustomInputField(
+                          controller: _contactController,
                           labelText: 'Contact no.',
                           hintText: 'Your contact number',
+
                           isDense: true,
                           validator: (textValue) {
                             if(textValue == null || textValue.isEmpty) {
                               return 'Contact number is required!';
                             }
                             return null;
+                            
+                          }
+                      ),
+                      const SizedBox(height: 16,),
+                       CustomInputField(
+                          controller: _whatsappController,
+                          labelText: 'Whatsapp no.',
+                          hintText: 'Your whatsapp number',
+
+                          isDense: true,
+                          validator: (textValue) {
+                            if(textValue == null || textValue.isEmpty) {
+                              return 'Contact number is required!';
+                            }
+                            return null;
+                            
                           }
                       ),
                       const SizedBox(height: 16,),
                       CustomInputField(
+                        controller: _passController,
                         labelText: 'Password',
                         hintText: 'Your password',
                         isDense: true,
@@ -140,11 +268,29 @@ class _SignupPageState extends State<SignupPage> {
                             return 'Password is required!';
                           }
                           return null;
+                          
                         },
                         suffixIcon: true,
                       ),
                       const SizedBox(height: 22,),
-                      CustomFormButton(innerText: 'Signup', onPressed: _handleSignupUser,),
+                      CustomFormButton(innerText: 'Signup', onPressed:  () {
+                    if (_signupFormKey.currentState!.validate() ) {
+                      if (_image == null) {
+        // Show an error message to the user (e.g., using a Snackbar)
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please select a profile image.'),
+          ),
+        );
+                      }else{
+                      // Form is valid, you can submit the event here
+
+                        _handleSignupUser();  
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                                      return LoginPage(onTap: () { widget.onTap; },); 
+                                  },),) ;                    
+                    }}
+                  },),
                       const SizedBox(height: 18,),
                       SizedBox(
                         child: Row(
@@ -153,9 +299,7 @@ class _SignupPageState extends State<SignupPage> {
                           children: [
                             const Text('Already have an account ? ', style: TextStyle(fontSize: 13, color: Color(0xff939393), fontWeight: FontWeight.bold),),
                             GestureDetector(
-                              onTap: () => {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()))
-                              },
+                              onTap: widget.onTap,
                               child: const Text('Log-in', style: TextStyle(fontSize: 15, color: Color(0xff748288), fontWeight: FontWeight.bold),),
                             ),
                           ],
@@ -173,7 +317,7 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  void _handleSignupUser()  async {
+  void _handleSignupUser()  async {/* 
     // Initialize FFI
   sqfliteFfiInit();
 
@@ -296,10 +440,68 @@ class _SignupPageState extends State<SignupPage> {
   await deleteDog(fido.id);
 
   // Print the list of user (empty).
-  print(await user());
+  print(await user()); */
+        print("text :${_emailController.text}");
+        //create the user :  
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, password: _passController.text);
+
+        //add user details : 
+        await addUsersDetails(userCredential.user!,  _nameController.text.trim(), _lastnameController.text.trim(), _emailController.text.trim(), _contactController.text.trim(), _passController.text.trim(), _instaController.text.trim(), _whatsappController.text.trim(), _ProfessionController.text.trim(), _image!);
+
+      } 
+              final FirebaseStorage _storage = FirebaseStorage.instance;
+
+   Future<String> uploadImageToStorage(String fileName, Uint8List file) async {
+  try {
+    final Reference ref = FirebaseStorage.instance.ref().child('$fileName.png');
+    // Assuming the provided 'fileName' is already the filename without an extension.
+
+    final metadata = SettableMetadata(contentType: 'image/png');
+
+    final TaskSnapshot taskSnapshot = await ref.putData(file, metadata);
+    final downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+    return downloadUrl;
+  } catch (e) {
+    debugPrint('Failed to upload image to Firestore: $e');
+    return ''; // Return an appropriate value or handle the error according to your needs.
+  }
+}
+    Future<String> addUsersDetails(User user , String name ,String lastname ,String email ,String contact ,String pass ,
+     String insta ,String whatsapp ,String profession , Uint8List profilepic) async { 
+
+        String resp = "some error occured " ; 
+        try {
+          String imageurl = await uploadImageToStorage("${_instaController.text}", profilepic);
+          
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+         'firstName' : name, 
+            'lastName' :  lastname,
+            'phone' :  contact,
+            'email' :  email,
+            'password' :  pass,
+           // 'gender' :  , 
+           // 'city' :  ,
+            'instagramid' :  insta,
+            'whatsappnumber' :  whatsapp,
+            'profession' :  profession,
+            'profilepic' :  imageurl,
+
+
+
+        });
+          resp = 'success' ; 
+        } catch (err) {
+          resp.toString();
+        }
+        return resp ; 
+       
+        
 }
 
 }
+/* 
+
 class User {
   final int id;
   final String name;
@@ -337,3 +539,4 @@ class User {
 
 
 
+ */

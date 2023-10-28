@@ -1,12 +1,20 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:login_signup/components/login_page.dart';
-import 'package:login_signup/utils/theme_data.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:login_signup/screens/EADashedBoardScreen.dart';
+import 'package:login_signup/screens/auth_page.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
 
 
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); 
+  await Firebase.initializeApp(
+    options:  DefaultFirebaseOptions.currentPlatform,
+
+  );
   
   runApp(const MyApp());
 
@@ -18,21 +26,28 @@ void main() async {
 
 late _MyAppState settingUI;
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
-     /*  light: blackTheme(Colors.black, Colors.white),
-      dark: lightTheme(Colors.white, Colors.black),
-      initial: AdaptiveThemeMode.dark, */
+   return  MaterialApp(
+     initialRoute: '/', // Set your initial route (if needed).
+     
+     
+    
+     home: AdaptiveTheme(
+      light: ThemeData.light(useMaterial3: true),
+      dark: ThemeData.dark(useMaterial3: true),
+      initial: AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(
         
-     /*    theme: theme,
-        darkTheme: darkTheme, */
-        home: LoginPage(),
+        
+        title: 'login',
+        theme: theme,
+        darkTheme: darkTheme,
+        home: const AuthPage(),
       ),
-    );
+    ),);
   }
   @override
   _MyAppState createState() => _MyAppState();
@@ -41,6 +56,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
   Color primaryColor = Colors.blue;
   Color accentColor = Colors.blue;
   bool isDarkMode = true;
@@ -54,17 +70,33 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     settingUI = this;
+
+    
      return MaterialApp(
-     /*  light: lightTheme(Colors.white, Colors.black),
-      dark: blackTheme(Colors.black, Colors.white),
-      initial: AdaptiveThemeMode.dark, */
+       initialRoute: '/', // Set your initial route (if needed).
+     
+     
+     
+       home:  WillPopScope(
+    onWillPop: () async {
+      // Handle the back button press as needed
+      // For example, you can show a confirmation dialog before allowing navigation.
+      // If you want to navigate back without confirmation, simply return true.
+      return true; // Return false to prevent navigation
+    },
+  child: AdaptiveTheme(
+      light: ThemeData.light(useMaterial3: true),
+      dark: ThemeData.dark(useMaterial3: true),
+      initial: AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(
-        title: 'Setting ui',
-        /* theme: theme,
-        darkTheme: darkTheme, */
-        home: LoginPage(),
+       
+         title: 'login',
+        theme: theme,
+        darkTheme: darkTheme,
+        home: const AuthPage(),
       ),
-    );
+    ),),);
   }
 }
+
 

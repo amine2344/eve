@@ -6,7 +6,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'EAPurchaseScreen.dart';
 
 class EATodayTicketScreen extends StatefulWidget {
-  const EATodayTicketScreen({Key? key}) : super(key: key);
+  const EATodayTicketScreen({super.key});
 
   @override
   _EATodayTicketScreenState createState() => _EATodayTicketScreenState();

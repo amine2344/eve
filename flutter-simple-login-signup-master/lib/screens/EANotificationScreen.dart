@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EANotificationScreen extends StatefulWidget {
-  const EANotificationScreen({Key? key}) : super(key: key);
+  const EANotificationScreen({super.key});
 
   @override
   _EANotificationScreenState createState() => _EANotificationScreenState();

@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:login_signup/screens/EAHomeScreen.dart';
 import 'package:login_signup/screens/settings_screen.dart';
 import 'package:login_signup/screens/EAProfileScreen.dart';
-import 'package:login_signup/utils/EAColors.dart';
 
 
 class EADashedBoardScreen extends StatefulWidget {
@@ -19,12 +17,12 @@ class EADashedBoardScreen extends StatefulWidget {
 class EADashedBoardScreenState extends State<EADashedBoardScreen> {
   int _selectedIndex = 1;
   final List<Widget> _pages = [];
-  int index = 1 ; 
+
   @override
   void initState() {
     super.initState();
     init();
-    _pages.add(const SettingsScreen());
+    _pages.add(const Settings_i());
     _pages.add(EAHomeScreen(name: widget.name));
   //  _pages.add(EASearchScreen());
    // _pages.add(EANewsList());
@@ -33,13 +31,12 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
   }
 
   Widget _bottomTab() {
-    return  CupertinoTabScaffold(
+    return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.settings),
             label: 'settings',
-
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.news),
@@ -48,18 +45,17 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.profile_circled),
             label: 'profile',
-            
           ),
-         
-         
         ],
+        currentIndex: _selectedIndex, // Set the current index
+        onTap: _onItemTapped, // Define a callback for when an item is tapped
       ),
       tabBuilder: (BuildContext context,  index ) {
         
         return CupertinoTabView(
           builder: (BuildContext context) {
             return Center(
-              child: _pages.elementAt(index)
+              child: _pages.elementAt(_selectedIndex)
             );
           },
         );
@@ -70,8 +66,9 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
 
   
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index ) {
     setState(() {
+      
       _selectedIndex = index  ;
     });
   }
@@ -90,7 +87,7 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
     String hexcolor =  "#ed3269";
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Events"),
+        title: const Text("All Events"),
         backgroundColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
       ),
       bottomNavigationBar: _bottomTab(),

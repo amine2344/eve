@@ -7,7 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'EAWalkThroughScreen.dart';
 
 class EASplashScreen extends StatefulWidget {
-  const EASplashScreen({Key? key}) : super(key: key);
+  const EASplashScreen({super.key});
 
   @override
   _EASplashScreenState createState() => _EASplashScreenState();

@@ -7,7 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EALocationScreen extends StatefulWidget {
-  const EALocationScreen({Key? key}) : super(key: key);
+  const EALocationScreen({super.key});
 
   @override
   _EALocationScreenState createState() => _EALocationScreenState();

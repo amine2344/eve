@@ -98,10 +98,10 @@ Widget commonButton({double? width, String? btnText}) {
 
 class ChatMessageWidget1 extends StatelessWidget {
   const ChatMessageWidget1({
-    Key? key,
+    super.key,
     required this.isMe,
     required this.data,
-  }) : super(key: key);
+  });
 
   final bool isMe;
   final EAMessageModel data;

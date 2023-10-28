@@ -7,7 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'PurchaseMoreScreen.dart';
 
 class EAPurchaseScreen extends StatefulWidget {
-  const EAPurchaseScreen({Key? key}) : super(key: key);
+  const EAPurchaseScreen({super.key});
 
   @override
   _EAPurchaseScreenState createState() => _EAPurchaseScreenState();

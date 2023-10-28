@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class EARewardScreen extends StatefulWidget {
-  const EARewardScreen({Key? key}) : super(key: key);
+  const EARewardScreen({super.key});
 
   @override
   _EARewardScreenState createState() => _EARewardScreenState();
@@ -69,7 +69,7 @@ class _EARewardScreenState extends State<EARewardScreen> {
 }
 
 class RewardText extends StatefulWidget {
-  const RewardText({Key? key}) : super(key: key);
+  const RewardText({super.key});
 
   @override
   _RewardTextState createState() => _RewardTextState();
