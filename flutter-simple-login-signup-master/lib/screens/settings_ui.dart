@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keepsettings/keepsettings.dart';
+
 import 'package:login_signup/main.dart';
 import 'package:login_signup/utils/color_picker.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
@@ -234,7 +235,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  Future<void> colorPicker(List<Color> appColors, onColorChange) async {
+  /* Future<void> colorPicker(List<Color> appColors, onColorChange) async {
     final status = await showDialog(
           barrierDismissible: true,
           context: context,
@@ -274,7 +275,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
     settingUI.callSetState();
   }
-
+ */
   void log_out(BuildContext context) {
   // Use Navigator to pop all routes on the stack
   Navigator.of(context).popUntil((route) => route.isFirst);
@@ -361,7 +362,7 @@ class MyAlertDialog extends StatelessWidget {
         actions: actions,
       );
 }
-
+/* 
 List<Color> primaryColors = <Color>[
   Colors.red,
   Colors.pink,
@@ -378,8 +379,8 @@ List<Color> primaryColors = <Color>[
   Colors.grey,
   Colors.blueGrey,
   Colors.black,
-];
-
+]; */
+/* 
 List<Color> accentColors = <Color>[
   Colors.redAccent,
   Colors.pinkAccent,
@@ -394,4 +395,4 @@ List<Color> accentColors = <Color>[
   Colors.lightBlueAccent,
   Colors.amberAccent,
   const Color(0xFFFF7582),
-];
+]; */
