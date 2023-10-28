@@ -99,6 +99,7 @@ void _toggleFormVisibility() {
     );
   },
   child: Text(
+    
     'Add Event +',
     style: TextStyle(color: CupertinoColors.white), // Text color
   ),

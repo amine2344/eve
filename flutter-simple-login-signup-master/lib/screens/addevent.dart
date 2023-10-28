@@ -43,8 +43,9 @@ class _AddEventPage extends State<AddEventPage> {
       // Handle the back button press as needed
       // For example, you can show a confirmation dialog before allowing navigation.
       // If you want to navigate back without confirmation, simply return true.
-       Navigator.of(context).pop();
-       return false;// Return false to prevent navigation
+       
+       Navigator.pop(context);
+       return true;// Return false to prevent navigation
     },
     child: const CupertinoPageScaffold(
       
