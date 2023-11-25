@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:login_signup/main.dart';
 import 'package:login_signup/screens/MyProfile.dart';
 
 
@@ -60,7 +62,8 @@ class _EAProfileScreen extends State<EAProfileScreen> {
             // When the "middle" parameter is implemented, the largest title is only visible
             // when the CupertinoSliverNavigationBar is fully expanded.
 
-            largeTitle: const Text('Profile'),
+                        largeTitle:  Text('Profile', style: TextStyle(color: settingUI.isDarkMode ? Colors.black : Colors.white),) ,
+
 
 
             

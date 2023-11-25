@@ -1,26 +1,63 @@
-import 'package:login_signup/utils/EAColors.dart';
-import 'package:login_signup/utils/EADataProvider.dart';
-import 'package:login_signup/utils/EAImages.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'dart:convert';
 
-import 'EAReviewScreen.dart';
-import 'EATicketDetailScreen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:login_signup/main.dart';
+import 'package:login_signup/screens/cupertino_images.dart';
+import 'package:login_signup/utils/EAColors.dart';
+import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class EAEventDetailScreen extends StatefulWidget {
-  final String? name;
+  final String name;
   final String? hashTag;
   final String? attending;
   final String? price;
-  final String? image;
-
-  const EAEventDetailScreen({super.key, this.name, this.hashTag, this.attending, this.price, this.image});
+  final String image;
+  final String host ; 
+  final String about ; 
+  final String date ; 
+  final String location ; 
+  const EAEventDetailScreen({super.key,required this.host, required this.location , required this.date , required this.name, this.hashTag, this.attending, this.price,required this.image, required this.about});
 
   @override
   _EAEventDetailScreenState createState() => _EAEventDetailScreenState();
 }
 
+Future<void> sendNotification(String deviceToken, String title, String body) async {
+  final url = Uri.parse('https://fcm.googleapis.com/v1/projects/{auth-72203}/messages:send');
+  const serverKey = 'be01c77dc2ae371acaf63571b0241948461a997e';
+ try{
+ await http.post(
+        Uri.parse('https://fcm.googleapis.com/v1/projects/{auth-72203}/messages:send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=$serverKey',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{
+              'body': body,
+              'title': title
+            },
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            "to": deviceToken,
+          },
+        ),
+      );
+      print("sent");
+    } catch (e) {
+      print("error push notification");
+      print(e);
+    }
+      
+}
 class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
   PageController pageController = PageController(initialPage: 0);
   int currentIndexPage = 0;
@@ -28,70 +65,72 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
   String des1 = "Let's play silent game.but this time you have to dance under the star white hundreds... ";
   bool isFriend = false;
   bool isFav = false;
-
+  final PageController _pageController = PageController();
+ 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              floating: true,
-              pinned: true,
-              title: Text(innerBoxIsScrolled ? widget.name! : ""),
-              backgroundColor: primaryColor1,
-              expandedHeight: 250.0,
-              iconTheme: const IconThemeData(color: white),
-              automaticallyImplyLeading: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    PageView.builder(
-                      controller: pageController,
-                      itemCount: 3,
-                      itemBuilder: (context, i) {
-                        return Image.asset(widget.image!, fit: BoxFit.cover);
-                      },
-                      onPageChanged: (value) {
-                        setState(() => currentIndexPage = value);
-                      },
-                    ),
-                    DotIndicator(pageController: pageController, pages: walkThroughList, indicatorColor: white, unselectedIndicatorColor: grey).paddingBottom(8),
-                  ],
-                ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    toast('Share ${widget.name} to your friends');
-                  },
-                  icon: const Icon(AntDesign.sharealt, color: white).paddingRight(12),
-                ),
-                IconButton(
-                  onPressed: () {
-                    isFav = !isFav;
-                    setState(() {});
-                  },
-                  icon: Icon(isFav ? Icons.favorite : Icons.favorite_border, color: isFav ? Colors.red : white).paddingRight(12),
-                ),
-              ],
+  Widget build(BuildContext context)  {
+     List<String> imageList = [ 
+    widget.image, 
+    widget.image, 
+    widget.image
+  
+  ];
+    return WillPopScope(
+     onWillPop: () async {
+      print("backpressed button ");
+      Navigator.pop(context);
+      return true ; 
+     },
+     child:  CupertinoPageScaffold(
+     /*  navigationBar: const CupertinoNavigationBar(
+        middle: Text('Event Details'),
+      ), */
+       child: Container(
+        decoration:  BoxDecoration(
+          image: DecorationImage(
+            image:  settingUI.isDarkMode ?   const AssetImage("images/wallpaper_white.png") : const AssetImage("images/wallpaper_black.png") , 
+            fit: BoxFit.cover,
+          ),
+        ),
+      child: CustomScrollView(
+        slivers: <Widget>[
+          const CupertinoSliverNavigationBar(
+            largeTitle: Text(""),
+          ),
+          SliverToBoxAdapter(
+            child: CupertinoImageDotIndicator(
+              pageController: pageController,
+              images: imageList,
             ),
-          ];
-        },
-        body: SingleChildScrollView(
-          child: Column(
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(0),
+            sliver: SliverList(
+              delegate:
+              
+             SliverChildListDelegate(
+                [
+                  
+
+                  
+   
+   Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              
               Text(widget.hashTag!, style: secondaryTextStyle()).paddingOnly(left: 12, top: 8, bottom: 8),
-              Text(widget.name!, style: boldTextStyle()).paddingOnly(left: 12, bottom: 8),
+              Text(widget.name, style: boldTextStyle()).paddingOnly(left: 12, bottom: 8),
+             
+              
+
               Row(
                 children: [
                   const Icon(Icons.timelapse_rounded, size: 20),
                   8.width,
-                  Text("SUN MAR.25-4:30 PM EST", style: primaryTextStyle()),
+                  Text(widget.date.toString(), style: primaryTextStyle()),
                 ],
               ).paddingOnly(left: 12, bottom: 8),
+  
               Row(
                 children: [
                   const Icon(
@@ -103,7 +142,7 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                 ],
               ).paddingOnly(left: 12, bottom: 8),
               16.height,
-              Container(
+             /*  Container(
                 color: grey.withOpacity(0.1),
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                 child: Row(
@@ -144,22 +183,22 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                     })
                   ],
                 ),
-              ),
+              ), */
               16.height,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('About'.toUpperCase(), style: boldTextStyle(color: grey)),
                   8.height,
-                  Text(des, style: primaryTextStyle()),
-                  Text(des1, style: primaryTextStyle()),
-                  Row(
+                  Text(widget.about),
+                  
+                 /*  Row(
                     children: [Text("Detail", style: primaryTextStyle(color: primaryColor1)), 4.width, const Icon(Icons.arrow_forward_ios_outlined, size: 14, color: primaryColor1)],
-                  ),
+                  ), */
                 ],
               ).paddingOnly(left: 12, bottom: 8, top: 8),
               16.height,
-              Text('Endorsed by'.toUpperCase(), style: boldTextStyle(color: grey)).paddingOnly(left: 12, bottom: 8, top: 8),
+              Text('Hosted by'.toUpperCase(), style: boldTextStyle(color: grey)).paddingOnly(left: 12, bottom: 8, top: 8),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -172,53 +211,108 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Clarence Rodgers', style: boldTextStyle()),
-                      Text('241 follorws', style: secondaryTextStyle()),
+                      Text(widget.host.toString(), style: boldTextStyle()),
+                      Text('admin', style: secondaryTextStyle()),
                     ],
                   ).expand(),
-                  IconButton(
+                  /* IconButton(
                     onPressed: () {
                       isFriend = !isFriend;
                       setState(() {});
                     },
                     icon: isFriend == true ? Icon(Icons.person_remove, color: isFriend ? primaryColor1 : black) : Icon(Icons.person_add_alt_1, color: isFriend ? primaryColor1 : black),
-                  ),
+                  ), */
                 ],
               ).paddingOnly(left: 12, bottom: 16, top: 8, right: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Location'.toUpperCase(), style: boldTextStyle(color: grey)),
-                  Row(
+                 /*  Row(
                     children: [
                       Text("How to get there", style: primaryTextStyle(color: primaryColor1)),
                       4.width,
                       const Icon(Icons.arrow_forward_ios_outlined, size: 14, color: primaryColor1),
                     ],
-                  ),
+                  ), */
                 ],
               ).paddingOnly(left: 12, bottom: 8, top: 8, right: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Stage 48', style: boldTextStyle()),
+                 /*  Text(widget.location.toString(), style: boldTextStyle()),
+                  8.height, */
+                  Row(
+                    children: [
+const Icon(Icons.map),
+                  Text(widget.location.toString(), style: secondaryTextStyle()),
                   8.height,
-                  Text('605 W 48th street, Manhattan, 1008 ', style: secondaryTextStyle()),
-                  8.height,
-                  Text('3.5 near by', style: primaryTextStyle()),
+                    ],
+                  )
+                  /* 
+                  Text('3.5 near by', style: primaryTextStyle()), */
                 ],
               ).paddingOnly(left: 12, bottom: 8, top: 8, right: 12),
-              Image.asset(event_ic_map, fit: BoxFit.cover, height: 200, width: context.width()),
+           
+                Wrap(
+  spacing: 8.0, // gap between adjacent chips
+  runSpacing: 4.0, // gap between lines
+  direction: Axis.horizontal, // main axis (rows or columns)
+  alignment: WrapAlignment.center,
+                children: [
+                  Text("You've been invited to this event ".toUpperCase(), style: boldTextStyle(color: grey)),
+                 /*  Row(
+                    children: [
+                      Text("How to get there", style: primaryTextStyle(color: primaryColor1)),
+                      4.width,
+                      const Icon(Icons.arrow_forward_ios_outlined, size: 14, color: primaryColor1),
+                    ],
+                  ), */
+                ],
+              ).paddingOnly(left: 12, bottom: 8, top: 8, right: 12),
+             
+              
+              Wrap(
+  spacing: 8.0, // gap between adjacent chips
+  runSpacing: 4.0, // gap between lines
+  direction: Axis.horizontal, // main axis (rows or columns)
+  alignment: WrapAlignment.center,
+  children: [
+    CupertinoButton(
+      color: CupertinoColors.systemRed,
+      child: const Text('Decline', style: TextStyle(color: CupertinoColors.white, fontSize: 7)),
+      onPressed: () {
+        Navigator.pop(context);
+        // Action when "Decline" is pressed
+      },
+    ),
+    const SizedBox(width: 8),
+    CupertinoButton(
+      color: CupertinoColors.activeGreen,
+      child: const Text('Accept', style: TextStyle(color: CupertinoColors.white, fontSize: 7)),
+      onPressed: () {
+        _launchURL();
+        sendNotification("eQS6SOGDEFwAr1J-ypkAyI:APA91bEcMVs3MP-OUIogo2nqL9VIGFfQE-zULwQOTIJTBdf0ZJ-gZglWoUtAUtXaN3feQzcdjVVQxbdY_XMSvOyov92n7FHGXmWry5FEm4VNymO2MWKqGaRqMydv2H7bssKN8ga839YX", "Event accepted", "check user");
+        // Action when "Accept" is pressed
+      },
+    ),
+  ],
+).paddingOnly(left: 12, bottom: 8),
+
+              16.height,
+             // Image.asset(event_ic_map, fit: BoxFit.cover, height: 200, width: context.width()),
               Text('Contact'.toUpperCase(), style: boldTextStyle(color: grey)).paddingOnly(left: 12, bottom: 8, top: 8),
-              createRichText(
+              RichTextWidget(
                 list: [
                   TextSpan(text: "Send us an email at", style: primaryTextStyle()),
-                  TextSpan(text: " help@Event.com", style: primaryTextStyle(color: primaryColor1)),
+                  TextSpan(text: " Contact@ravishevent.com", style: primaryTextStyle(color: primaryColor1)),
                   TextSpan(text: " or call us at", style: primaryTextStyle()),
-                  TextSpan(text: " +1 991-681-0200", style: primaryTextStyle(color: primaryColor1)),
+                  TextSpan(text: " +971 52 866 1955 , +61 450 005 054", style: primaryTextStyle(color: primaryColor1)),
                 ],
-              ).paddingOnly(left: 12, bottom: 8, top: 8, right: 12),
-              Text('Similar Events'.toUpperCase(), style: boldTextStyle(color: grey)).paddingOnly(left: 12, bottom: 8, top: 8),
+              ).paddingOnly(left: 12, bottom: 8, top: 8, right: 12),50.height,
+
+               
+             /*  Text('Similar Events'.toUpperCase(), style: boldTextStyle(color: grey)).paddingOnly(left: 12, bottom: 8, top: 8),
               HorizontalList(
                 padding: const EdgeInsets.only(left: 12, bottom: 8, top: 8, right: 12),
                 itemCount: forYouList.length,
@@ -292,21 +386,27 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
                     ],
                   ).paddingRight(8);
                 },
-              )
+              ) */
+              
             ],
           ),
-        ),
+          
+          
+                ]
+
+              ),
+            ),
+          ),
+        ],
       ),
-      bottomNavigationBar: Container(
-        alignment: Alignment.center,
-        margin: const EdgeInsets.all(20),
-        width: context.width(),
-        height: 50,
-        decoration: boxDecorationWithShadow(borderRadius: radius(24), gradient: const LinearGradient(colors: [primaryColor1, primaryColor2])),
-        child: widget.price == 'Free' ? Text('Join it free'.toUpperCase(), style: boldTextStyle(color: white)) : Text('From \$20- get it'.toUpperCase(), style: boldTextStyle(color: white)),
-      ).onTap(() {
-        const EATicketDetailScreen().launch(context);
-      }),
+    ) ) ,
     );
   }
+}
+
+void _launchURL() async {
+  final Uri url = Uri.parse('https://www.instagram.com/ravishdxb/');
+   if (!await launchUrl(url)) {
+        throw Exception('Could not launch $url');
+    }
 }

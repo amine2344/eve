@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:login_signup/main.dart';
 import 'package:login_signup/screens/EventScreen.dart';
-import 'package:login_signup/screens/settings_ui.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class AddEventPage extends StatefulWidget {
   final String? name;
@@ -38,17 +37,10 @@ class _AddEventPage extends State<AddEventPage> {
   Widget build(BuildContext context) {
     final Brightness brightness = CupertinoTheme.brightnessOf(context);
 
-    return WillPopScope(
-    onWillPop: () async {
-      // Handle the back button press as needed
-      // For example, you can show a confirmation dialog before allowing navigation.
-      // If you want to navigate back without confirmation, simply return true.
-       
-       Navigator.pop(context);
-       return true;// Return false to prevent navigation
-    },
-    child: const CupertinoPageScaffold(
-      
+    return WillPopScope(child: 
+    
+    
+     CupertinoPageScaffold(
       child:  CustomScrollView(
         slivers: <Widget>[
           CupertinoSliverNavigationBar(
@@ -56,12 +48,12 @@ class _AddEventPage extends State<AddEventPage> {
            
            
             // The middle widget is visible in both collapsed and expanded states.
-            middle: Text(' '),
+            middle: const Text(' '),
             // When the "middle" parameter is implemented, the largest title is only visible
             // when the CupertinoSliverNavigationBar is fully expanded.
-            largeTitle: Text('Add Event'),
+            largeTitle:  Text('Add Event', style: TextStyle(color: settingUI.isDarkMode ? CupertinoColors.black : CupertinoColors.white),) ,
           ),
-          SliverFillRemaining(
+          const SliverFillRemaining(
             child:  Center(
               child:  EventScreen(),
             )
@@ -69,6 +61,17 @@ class _AddEventPage extends State<AddEventPage> {
           ),
         ],
       ),
-    ), );
+     )
+     , onWillPop: 
+     
+     (){
+      
+      return  Future(() async {
+        debugPrint("test");
+        return true;
+      },) ;
+
+     });
+   
   }
 }

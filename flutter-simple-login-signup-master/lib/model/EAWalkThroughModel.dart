@@ -6,6 +6,11 @@ class EAWalkThrough {
   EAWalkThrough({this.title, this.subtitle, this.image});
 }
 
+class AboutData{
+  String about; 
+ 
+ AboutData({required this.about});
+}
 class EACityModel {
   String? name;
   String? subtitle;

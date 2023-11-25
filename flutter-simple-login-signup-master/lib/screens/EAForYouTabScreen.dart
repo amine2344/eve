@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:login_signup/main.dart';
 import 'package:login_signup/utils/EAColors.dart';
 import 'package:login_signup/utils/EADataProvider.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class EAForYouTabScreen extends StatefulWidget {
 }
 
 class EAForYouTabScreenState extends State<EAForYouTabScreen> {
+  
+  
   @override
   void initState() {
     super.initState();
@@ -23,7 +27,9 @@ class EAForYouTabScreenState extends State<EAForYouTabScreen> {
 
   Future<void> init() async {
     //
-
+    WidgetsFlutterBinding.ensureInitialized();
+    const ListEvents(); 
+    
   }
 
   @override
@@ -34,8 +40,16 @@ class EAForYouTabScreenState extends State<EAForYouTabScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
+      
+      body:  Container(
+        decoration:  BoxDecoration(
+          image: DecorationImage(
+            image:  settingUI.isDarkMode ?   const AssetImage("images/wallpaper_white.png") : const AssetImage("images/wallpaper_black.png") , 
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
+         child: Column(
           children: [
           /*   Container(
               padding: const EdgeInsets.all(16),
@@ -49,19 +63,38 @@ class EAForYouTabScreenState extends State<EAForYouTabScreen> {
                 ],
               ), */
             ), */
-            ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(bottom: 40),
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: forYouList.length,
-              itemBuilder: (context, i) {
-                return Column(
+           ListView.builder(
+  shrinkWrap: true,
+  padding: const EdgeInsets.only(bottom: 40),
+  physics: const NeverScrollableScrollPhysics(),
+  itemCount: forYouList.isEmpty ? 1 : forYouList.length + 1,
+  itemBuilder: (context, i) {
+    if (forYouList.isEmpty) {
+      // Display CupertinoActivityIndicator while loading data
+      return const Center(
+        child: CupertinoActivityIndicator(),
+      );
+    } else {
+      // Check if it's the last index, show your regular list items
+      if (i == forYouList.length) {
+        
+        
+        return const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Center(
+            child: CupertinoActivityIndicator(),
+            
+          ),
+        );
+      } else { 
+        
+        return Column(
                   children: [
                     Stack(
 
                       alignment: Alignment.bottomCenter,
                       children: [
-                        Image.asset(forYouList[i].image!, height: 230, width: context.width(), fit: BoxFit.cover),
+                        Image.network(forYouList[i].image!, height: 230, width: context.width(), fit: BoxFit.cover),
                         Positioned(
                             right: 16,
                             top: 16,
@@ -94,12 +127,12 @@ class EAForYouTabScreenState extends State<EAForYouTabScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(forYouList[i].hashtag!, style: secondaryTextStyle()),
-                            Text('\$${forYouList[i].price}', style: boldTextStyle(color: primaryColor1)),
+                           // Text('\$${forYouList[i].price}', style: boldTextStyle(color: primaryColor1)),
                           ],
                         ),
                         4.height,
                         Text(forYouList[i].name!, style: boldTextStyle()),
-                        4.height,
+                        /* 4.height,
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -119,7 +152,7 @@ class EAForYouTabScreenState extends State<EAForYouTabScreen> {
                             Text('1.3k', style: secondaryTextStyle()),
                           ],
                         ),
-                        6.height,
+                         */6.height,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -131,7 +164,7 @@ class EAForYouTabScreenState extends State<EAForYouTabScreen> {
                                 Text(forYouList[i].add!, style: secondaryTextStyle()),
                               ],
                             ),
-                            Text('${forYouList[i].distance}km', style: secondaryTextStyle(color: primaryColor1)),
+//                            Text('${forYouList[i].distance}km', style: secondaryTextStyle(color: primaryColor1)),
                           ],
                         ),
                         6.height,
@@ -147,14 +180,18 @@ class EAForYouTabScreenState extends State<EAForYouTabScreen> {
                     ).paddingAll(16)
                   ],
                 ).onTap(() {
-                  EAEventDetailScreen(name: forYouList[i].name!, hashTag: forYouList[i].hashtag!, attending: forYouList[i].attending!, price: forYouList[i].price, image: forYouList[i].image!)
-                      .launch(context, pageRouteAnimation: PageRouteAnimation.Slide);
+                   Navigator.push(context, MaterialPageRoute(builder: (context){
+                                      return 
+  
+                  EAEventDetailScreen(name: forYouList[i].name!,date: forYouList[i].time!,location: forYouList[i].add! , host: forYouList[i].host!, hashTag: forYouList[i].hashtag!, attending: forYouList[i].attending!, price: forYouList[i].price, image: forYouList[i].image!, about:  about[i].about)
+                      ;}),);
                 });
-              },
-            )
+              }
+    }
+  })
           ],
         ),
       ),
-    );
+    ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:login_signup/main.dart';
 import 'package:login_signup/screens/settings_ui.dart';
 
 
@@ -53,7 +54,7 @@ class _Settings_i extends State<Settings_i> {
             middle: const Text(' '),
             // When the "middle" parameter is implemented, the largest title is only visible
             // when the CupertinoSliverNavigationBar is fully expanded.
-            largeTitle: const Text('Settings'),
+            largeTitle:  Text('Settings', style: TextStyle(color: settingUI.isDarkMode ? CupertinoColors.black : CupertinoColors.white),) ,
           ),
           const SliverFillRemaining(
             child:  Center(

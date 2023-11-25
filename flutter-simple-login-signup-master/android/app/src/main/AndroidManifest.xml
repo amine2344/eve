@@ -3,14 +3,15 @@
      <!-- Add permission to access external storage (if needed) -->
      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
- 
+     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
      <!-- Add permission for internet access (if your app communicates with the internet) -->
      <uses-permission android:name="android.permission.INTERNET" />
     
      <!-- Other permissions as needed -->
  
     <application
-        android:label="login_signup"
+        android:label="Ravish"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

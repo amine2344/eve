@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
            body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/back2.jpg"),
+            image: AssetImage("images/back1.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -65,7 +65,11 @@ class _LoginPageState extends State<LoginPage> {
                   child: SingleChildScrollView(
                     child: Form(
                       key: _loginFormKey,
-                      child: Column(
+                      child:  Column(
+          
+        
+
+
                         children: [
                           const PageHeading(title: 'Log-in',),
 
@@ -124,8 +128,8 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 18,),
                           SizedBox(
                             width: size.width * 0.8,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child:  Column(
+            
                               children: [
                                 const Text('Don\'t have an account ? ', style: TextStyle(fontSize: 13, color: Color(0xff939393), fontWeight: FontWeight.bold),),
                                 GestureDetector(
@@ -141,14 +145,14 @@ class _LoginPageState extends State<LoginPage> {
                            Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 55.0),
                 
-                child: Row(
+                child:  Column(
+            
+
                   children: [
 
-                     const Divider( // Creates a horizontal divider
-                thickness: 15, height: 12, indent: 1, // Set the thickness of the divider
-                color: Colors.white, // Set the color of the divider
-              ),
-                    Expanded(child: Divider(thickness: 1,color: Colors.grey[700]),),
+                     
+                     
+                    Expanded(child: Divider(thickness: 1,color: Color.fromARGB(255, 44, 44, 44)),),
                     
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 10.0),

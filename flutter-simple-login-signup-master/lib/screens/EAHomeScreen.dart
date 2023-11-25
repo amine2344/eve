@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:login_signup/main.dart';
 import 'package:login_signup/screens/EAForYouTabScreen.dart';
 import 'package:login_signup/screens/PurchaseMoreScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:login_signup/utils/EADataProvider.dart';
 
 
 class EAHomeScreen extends StatefulWidget {
@@ -31,7 +33,9 @@ class EAHomeScreenState extends State<EAHomeScreen> {
   }
 
   Future<void> init() async {
-    //
+    //    ListEvents(); 
+    const ListEvents(); 
+
   }
 
   @override
@@ -45,12 +49,14 @@ class EAHomeScreenState extends State<EAHomeScreen> {
     final Brightness brightness = CupertinoTheme.brightnessOf(context);
 
     return CupertinoPageScaffold(
+      
       child: CustomScrollView(
         slivers: <Widget>[
           CupertinoSliverNavigationBar(
             
             border: Border(
               bottom: BorderSide(
+
                 color: brightness == Brightness.light
                     ? CupertinoColors.black
                     : CupertinoColors.white,
@@ -60,12 +66,20 @@ class EAHomeScreenState extends State<EAHomeScreen> {
             middle: const Text(' '),
             // When the "middle" parameter is implemented, the largest title is only visible
             // when the CupertinoSliverNavigationBar is fully expanded.
-            largeTitle: const Text('All Events'),
+                       largeTitle:  Text('All Events', style: TextStyle(color: settingUI.isDarkMode ? CupertinoColors.black : CupertinoColors.white),) ,
+
           ),
-          const SliverFillRemaining(
+           SliverFillRemaining(
             child:  Center(
-              child:  EAForYouTabScreen(),
-            )
+              child: Container(
+        decoration:  BoxDecoration(
+          image: DecorationImage(
+            image:  settingUI.isDarkMode ? const AssetImage("images/wallpaper_black.png") : const AssetImage("images/wallpaper_white.png") , 
+            fit: BoxFit.cover,
+          ),
+        ),
+         child: const EAForYouTabScreen(),
+            )),
             
           ),
         ],

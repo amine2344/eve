@@ -9,10 +9,15 @@
       "client_info": {
         "mobilesdk_app_id": "1:1046501087671:android:3c51208c8fec93f6b83032",
         "android_client_info": {
-          "package_name": "com.adeelsafdar.loginsignup.login_signup"
+          "package_name": "om.adeelsafdar.loginsignup.login_signup"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1046501087671-9a7678mu6q3bkl7aivav2h5oj44a9k61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDkPSHAs0sPPx-2iAl_APzquIQXF0X9Geo"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046501087671-9a7678mu6q3bkl7aivav2h5oj44a9k61.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1046501087671-7jd5dkk5hfhar4gq5n71raha2i2ff7v2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.apple.loginsignup"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_signup/main.dart';
 import 'package:login_signup/screens/EAHomeScreen.dart';
 import 'package:login_signup/screens/settings_screen.dart';
 import 'package:login_signup/screens/EAProfileScreen.dart';
+import 'package:login_signup/utils/EADataProvider.dart';
 
 
 class EADashedBoardScreen extends StatefulWidget {
@@ -22,6 +24,8 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
   void initState() {
     super.initState();
     init();
+        const ListEvents(); 
+
     _pages.add(const Settings_i());
     _pages.add(EAHomeScreen(name: widget.name));
   //  _pages.add(EASearchScreen());
@@ -31,7 +35,16 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
   }
 
   Widget _bottomTab() {
-    return CupertinoTabScaffold(
+    return WillPopScope(
+     onWillPop: () async {
+      print("backpressed button ");
+      Navigator.pop(context);
+      Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+        return const EADashedBoardScreen() ; 
+      },));
+      return true ; 
+     }, child: 
+    CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -60,8 +73,8 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
           },
         );
       },
-    );
-  }
+    ),
+  );}
 
 
   
@@ -87,7 +100,8 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
     String hexcolor =  "#ed3269";
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All Events"),
+                    title:  Text('All Events', style: TextStyle(color: settingUI.isDarkMode ? CupertinoColors.black : CupertinoColors.white),) ,
+
         backgroundColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
       ),
       bottomNavigationBar: _bottomTab(),
@@ -96,8 +110,8 @@ class EADashedBoardScreenState extends State<EADashedBoardScreen> {
       
       ),
 
-        backgroundColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
-      
+        
+        
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

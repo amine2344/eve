@@ -1,11 +1,10 @@
 
 
 
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:keepsettings/keepsettings.dart';
+
 import 'package:login_signup/main.dart';
 import 'package:login_signup/utils/color_picker.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
@@ -49,71 +48,78 @@ class _SettingsScreenState extends State<SettingsScreen> {
     String hexcolor =  "#ed3269";
     
     return 
-    SettingsList(
-      
-      sections: [
-        TilesSection(
-          
-          tiles: [
-            
-             SettingsTile(
-          title: 'Select Language',
-          leading: const Icon(CupertinoIcons.textformat_abc_dottedunderline),
-          onPressed: showLanguagePicker, 
+     Container(
+        decoration:  BoxDecoration(
+          image: DecorationImage(
+            image:  settingUI.isDarkMode ?   const AssetImage("images/wallpaper_white.png") : const AssetImage("images/wallpaper_black.png") , 
+            fit: BoxFit.cover,
+          ),
         ),
-            SettingsTile.switchTile(
-              title: 'Notification Push',
+        child:
+    ListView(
+      
+      
+      
+          
+          children: [
+            
+            
+             ListTile(
+          title: const Text('Select Language'),
+          leading: const Icon(CupertinoIcons.textformat_abc_dottedunderline),
+          onTap:() => showLanguagePicker(context), 
+        ),
+            ListTile(
+              title: const Text('Notification Push'),
               leading: const Icon(CupertinoIcons.bell),
-              switchActiveColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
-              switchValue: tile1,
+              selectedTileColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
+              trailing: Switch( value: tile1,
+                onChanged: Notify,
+              ),
               
-              onToggle: Notify,
             ),
            
            
-            SettingsTile.switchTile(
-              title: ' Dark Mode',
-              subtitle: 'Save your eyes',
+            ListTile(
+              title: const Text(' Dark Mode'),
+              subtitle: const Text('Save your eyes'),
               leading: const Icon(CupertinoIcons.cloud_sun),
-              switchActiveColor: Color(int.parse(hexcolor.substring(1, 7), radix: 16) + 0xFF000000),
-              switchValue: tile2,
-              onToggle: toggleDarkMode,
-
+              trailing: Switch( value: tile2,
+                onChanged: toggleDarkMode,
+              ),
             ),
            
            
-                SettingsTile(
-                title: 'Change Password',
+                ListTile(
+                title: const Text('Change Password'),
                 leading: const Icon(CupertinoIcons.lock_fill),
                 onTap: () {
                   // Implement the change password logic here
                 },
               ),
-              SettingsTile(
-                title: 'Change WhatsApp Number',
+              ListTile(
+                title: const Text('Change WhatsApp Number'),
                 leading: const Icon(CupertinoIcons.phone_fill),
                 onTap: () {
                   // Implement the change WhatsApp number logic here
                 },
               ),
-              SettingsTile(
-                title: 'Change Email',
+              ListTile(
+                title: const Text('Change Email'),
                 leading: const Icon(CupertinoIcons.mail),
                 onTap: () {
                   // Implement the change email logic here
                 },
               ),
-            SettingsTile(
-                          onPressed: (_) {
-                            FirebaseAuth.instance.signOut();
-                      
-                          },
-              title: 'log out',
+            ListTile(
+                          onTap: signout,
+              title: const Text('log out'),
               
               leading: const Icon(CupertinoIcons.back),
             ),
           ],
-        ),
+        ));
+
        /*  SliderSection(
           slider: SliderTile(
             initialSliderValue: initialValue,
@@ -150,8 +156,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ],
         ), */
-      ],
-    );
+      
+    
+  
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -198,8 +205,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void doSomething(value) {
     ScaffoldMessenger.of(context).clearSnackBars();
    showDialog(context: context, builder: (context) {
-          return     CupertinoAlertDialog(
-        title: const Text('Done'),
+          return     const CupertinoAlertDialog(
+        title: Text('Done'),
           );}     
    
 );
@@ -281,14 +288,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // Push the login page route
   Navigator.pushReplacementNamed(context, 'login');
   }
+
+  Function? signout() {
+    FirebaseAuth.instance.signOut();
+    return null;
+  }
 }
+
+
 void showLanguagePicker(BuildContext context) {
   int selectedLanguageIndex = 0; // Initialize with the index of the current language
   showDialog(
     context: context,
     builder: (context) {
       return CupertinoAlertDialog(
-        title: Text('Select Language'),
+        title: const Text('Select Language'),
         content: SizedBox(
           height: 150, // Adjust the height as needed
           child: CupertinoPicker(
@@ -296,7 +310,7 @@ void showLanguagePicker(BuildContext context) {
             onSelectedItemChanged: (int index) {
               selectedLanguageIndex = index;
             },
-            children: <Widget>[
+            children: const <Widget>[
               Text('English'),
               Text('French'),
             ],
@@ -304,13 +318,13 @@ void showLanguagePicker(BuildContext context) {
         ),
         actions: <Widget>[
           CupertinoDialogAction(
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
           CupertinoDialogAction(
-            child: Text('Save'),
+            child: const Text('Save'),
             onPressed: () {
               // Save the selected language and apply it to your app
               // You can use the selectedLanguageIndex to determine the chosen language.
@@ -361,7 +375,7 @@ class MyAlertDialog extends StatelessWidget {
         actions: actions,
       );
 }
-
+/* 
 List<Color> primaryColors = <Color>[
   Colors.red,
   Colors.pink,
@@ -394,4 +408,4 @@ List<Color> accentColors = <Color>[
   Colors.lightBlueAccent,
   Colors.amberAccent,
   const Color(0xFFFF7582),
-];
+]; */

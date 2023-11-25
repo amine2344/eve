@@ -35,8 +35,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     try {
           await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text.trim());
            showDialog(context: context, builder: (context) {
-          return     CupertinoAlertDialog(
-        title: const Text('Congratulation '),
+          return     const CupertinoAlertDialog(
+        title: Text('Congratulation '),
         content:  Text("Email sent, Check your email account "),
         
         

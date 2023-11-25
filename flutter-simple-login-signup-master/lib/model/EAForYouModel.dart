@@ -9,8 +9,9 @@ class EAForYouModel {
   String? price;
   double? distance;
   bool? fev;
+  String? host ;  
 
-  EAForYouModel({this.hashtag, this.name, this.rating, this.add, this.attending, this.time, this.image, this.distance, this.price, this.fev = false});
+  EAForYouModel({this.hashtag, this.host, this.name, this.rating, this.add, this.attending, this.time, this.image, this.distance, this.price, this.fev = false});
 }
 
 class EAMessageModel {

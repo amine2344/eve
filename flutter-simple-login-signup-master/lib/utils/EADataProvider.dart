@@ -1,3 +1,6 @@
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login_signup/model/EAActivityModel.dart';
 import 'package:login_signup/model/EAEventListModel.dart';
 import 'package:login_signup/model/EAForYouModel.dart';
@@ -8,6 +11,101 @@ import 'package:login_signup/model/EAWalkThroughModel.dart';
 import 'package:login_signup/utils/EAConstants.dart';
 import 'package:flutter/material.dart';
 import 'EAImages.dart';
+
+
+class ListEvents extends StatefulWidget {
+  const ListEvents({super.key});
+
+  @override
+  State<ListEvents> createState() => _ListEventsState();
+static Future<List<Map<String, dynamic>>> fetchData() async {
+  CollectionReference collectionRef = FirebaseFirestore.instance.collection('new_event');
+  QuerySnapshot querySnapshot = await collectionRef.get();
+  return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+}
+
+  static initialise()  async {
+    return FutureBuilder<List<Object?>>(
+  future: () async {
+    CollectionReference collectionRef = FirebaseFirestore.instance.collection('new_event');
+    QuerySnapshot querySnapshot = await collectionRef.get();
+
+    List<Map<String, dynamic>> dataFromFirestore = querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+
+    for (var itemData in dataFromFirestore) {
+      walkThroughList.add(EAWalkThrough(
+        image: itemData["event_photo"].toString(),
+        subtitle: itemData["event_location"].toString(),
+        title: itemData["event_name"].toString(),
+      ));
+
+      about.add(AboutData(about: itemData["event_about"].toString()));
+      hashtagList.add(EACityModel(
+        image: itemData["event_photo"].toString(),
+        name: itemData["event_name"].toString(),
+        subtitle: itemData["event_location"].toString(),
+        isSelected: false,
+        selectHash: false,
+      ));
+
+      forYouList.add(EAForYouModel(
+        host: itemData["event_host"].toString(),
+        add: itemData["event_location"].toString(),
+        attending: itemData["event_cat"].toString(),
+        hashtag: itemData["event_location"].toString(),
+        image: itemData["event_photo"].toString(),
+        distance: 12,
+        fev: false,
+        rating: 12,
+        name: itemData["event_name"].toString(),
+        price: itemData["event_cat"].toString(),
+        time: itemData["event_date"].toString(),
+      ));
+
+      imageList.add(EAActivityModel(
+        image: itemData["event_photo"].toString(),
+        name: itemData["event_name"].toString(),
+        icon: Icons.airplanemode_active,
+        subtime: "dafa",
+        subtitle: itemData["event_date"].toString(),
+        time: itemData["event_date"].toString(),
+      ));
+    }
+
+    return dataFromFirestore; // Return the data if needed
+  }(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (snapshot.hasError) {
+      return Center(child: Text('Error: ${snapshot.error}'));
+    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      return const Center(child: Text('No data available'));
+    } else {
+      // Return any other widgets you need to build
+      return const Text("fail"); 
+    }
+  },
+);
+
+  }
+}
+
+class _ListEventsState extends State<ListEvents> {
+  
+  
+  
+   
+  
+  @override
+  Widget build(BuildContext context) {
+    
+    
+         
+    return  const Text("help");
+    
+  }
+}
 
 List<EAWalkThrough> walkThroughList = [
   EAWalkThrough(image: event_ic_walk_through2, title: "EVENTS COLLECTION", subtitle: "Discover the best things to do this week in this city"),
@@ -24,6 +122,10 @@ List<EACityModel> cityList = [
   EACityModel(name: "New york", subtitle: "USA", image: event_ic_newYork),
 ];
 
+List<AboutData> about =[
+  
+  
+];
 List<EACityModel> hashtagList = [
   EACityModel(name: "music", subtitle: "2k+ events", image: event_ic_music, selectHash: true),
   EACityModel(name: "festival", subtitle: "800+ events", image: event_ic_walk_through3, selectHash: true),
@@ -50,42 +152,8 @@ List<EACityModel> filterHashtagList = [
   EACityModel(name: "festival", isSelected: false),
 ];
 List<EAForYouModel> forYouList = [
-  EAForYouModel(name: "NY Single Party Events", add: "93, Bayport Ave South..", attending: "19/5k attending", hashtag: "#date", rating: 4.3, price: "20", distance: 8, image: event_ic_london, fev: true),
-  EAForYouModel(
-      name: "The Wonder Women Free Tickets ",
-      add: "Tobacco Dock,London ",
-      attending: "19/5k attending",
-      hashtag: "#cinema #movie",
-      rating: 4.3,
-      time: "06 Hrs 27 Mins 44 Secs,",
-      price: "Free",
-      distance: 8,
-      image: event_ic_tokyo,
-      fev: false),
-  EAForYouModel(name: "NY Single Party Events", add: "93, Bayport Ave South..", attending: "19/5k attending", hashtag: "#date", rating: 4.3, price: "20", distance: 8, image: event_ic_paris, fev: false),
-  EAForYouModel(
-      name: "The Wonder Women Free Tickets ",
-      add: "Tobacco Dock,London ",
-      attending: "19/5k attending",
-      hashtag: "#cinema #movie",
-      rating: 4.3,
-      time: "06 Hrs 27 Mins 44 Secs,",
-      price: "Free",
-      distance: 8,
-      image: event_ic_newYork,
-      fev: false),
-  EAForYouModel(name: "NY Single Party Events", add: "93, Bayport Ave South..", attending: "19/5k attending", hashtag: "#date", rating: 4.3, price: "20", distance: 8, image: event_ic_paris, fev: false),
-  EAForYouModel(
-      name: "The Wonder Women Free Tickets ",
-      add: "Tobacco Dock,London ",
-      attending: "19/5k attending",
-      hashtag: "#cinema #movie",
-      rating: 4.3,
-      time: "06 Hrs 27 Mins 44 Secs,",
-      price: "Free",
-      distance: 8,
-      image: event_ic_tokyo,
-      fev: false),
+ 
+ 
 ];
 
 List<EAForYouModel> getMayKnowData() {
@@ -306,7 +374,5 @@ List<EAActivityModel> notificationList = [
 ];
 
 List<EAActivityModel> imageList = [
-  EAActivityModel(image: event_ic_newYork),
-  EAActivityModel(image: event_ic_paris),
-  EAActivityModel(image: event_ic_tokyo),
-];
+ 
+ ];

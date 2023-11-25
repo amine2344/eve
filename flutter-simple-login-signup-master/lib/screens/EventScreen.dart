@@ -5,16 +5,10 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:login_signup/main.dart';
-import 'package:login_signup/utils/color_picker.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
 
 
 enum RadioButtonOptions { op1, op2, op3 }
@@ -29,12 +23,12 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreen extends State<EventScreen> {
    final _formKey = GlobalKey<FormState>();
-  TextEditingController _eventNameController = TextEditingController();
-  TextEditingController _eventHostController = TextEditingController();
-  TextEditingController _eventDateController = TextEditingController();
-  TextEditingController _eventLocationController = TextEditingController();
-  TextEditingController _eventAboutController = TextEditingController();
-  TextEditingController _eventPhotoController = TextEditingController();
+  final TextEditingController _eventNameController = TextEditingController();
+  final TextEditingController _eventHostController = TextEditingController();
+  final TextEditingController _eventDateController = TextEditingController();
+  final TextEditingController _eventLocationController = TextEditingController();
+  final TextEditingController _eventAboutController = TextEditingController();
+  final TextEditingController _eventPhotoController = TextEditingController();
   
   
   Uint8List? _image ;
@@ -43,8 +37,8 @@ class _EventScreen extends State<EventScreen> {
     _image  = img ; 
   }
  Future _pickProfileImage(ImageSource source ) async {
-    final ImagePicker _imagepicker = ImagePicker() ; 
-    XFile? file = await _imagepicker.pickImage(source:  source ); 
+    final ImagePicker imagepicker = ImagePicker() ; 
+    XFile? file = await imagepicker.pickImage(source:  source ); 
     if (file!= null ){
       return await file.readAsBytes() ; 
     }
@@ -52,7 +46,7 @@ class _EventScreen extends State<EventScreen> {
 }
 Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
   try {
-    final firebaseStorageRef = FirebaseStorage.instance.ref().child("${_eventNameController.text}");
+    final firebaseStorageRef = FirebaseStorage.instance.ref().child(_eventNameController.text);
     // You can change the 'profile_images' folder to your desired folder name.
 
     // Convert Uint8List to PNG image
@@ -98,17 +92,17 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
     return ''; // Return an appropriate value or handle the error according to your needs.
   }
 }
-    Future add_new_event(String event_name , String event_host ,String event_date ,String event_location ,String event_about ,Uint8List event_photo) async { 
+    Future add_new_event(String eventName , String eventHost ,String eventDate ,String eventLocation ,String eventAbout ,Uint8List eventPhoto) async { 
      _selectedCategorie =  segmentedControlOptions [selectedOptionIndex]; 
 
-          String imageurl = await uploadImageToStorage("${_eventNameController.text}", event_photo);
+          String imageurl = await uploadImageToStorage(_eventNameController.text, eventPhoto);
           
        await FirebaseFirestore.instance.collection('new_event').add({
-         'event_name' : event_name, 
-            'event_date' :  event_date,
-            'event_location' :  event_location,
-            'event_host' :  event_host,
-            'event_about' :  event_about,
+         'event_name' : eventName, 
+            'event_date' :  eventDate,
+            'event_location' :  eventLocation,
+            'event_host' :  eventHost,
+            'event_about' :  eventAbout,
            // 'gender' :  , 
            // 'city' :  ,
             'event_photo' :  imageurl,
@@ -125,14 +119,16 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
   Widget build(BuildContext context) {
     return 
    SafeArea(
-      child: Scaffold(
+    
+          child: Scaffold(
+ //     backgroundColor: settingUI.isDarkMode ? CupertinoColors.black : CupertinoColors.white,
 
         
         body: SingleChildScrollView(
           child: 
     CupertinoFormSection(
-      backgroundColor: Colors.white,
-  header: Center(
+   //   backgroundColor: settingUI.isDarkMode ? CupertinoColors.black : CupertinoColors.white,
+  header: const Center(
     child: Column(
       children: <Widget>[
         Text(
@@ -140,7 +136,7 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
           style: TextStyle(
             fontSize: 17.0, // Adjust the font size as needed
             fontWeight: FontWeight.bold,
-            color: CupertinoColors.systemGrey, // Text color
+           // color: settingUI.isDarkMode ? CupertinoColors.black : CupertinoColors.black, // Text color
           ),
         ),
       ],
@@ -153,7 +149,7 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
           ClipRRect(
   borderRadius: BorderRadius.circular(12.0), // Adjust the radius as needed
   child: Container(
-    color: Colors.white, // Background color
+    //color: settingUI.isDarkMode ? CupertinoColors.black : CupertinoColors.white, // Background color
     child: Column(
       children: <Widget>[
           Form(
@@ -163,8 +159,8 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
                 CupertinoTextFormFieldRow(
                   controller: _eventNameController,
                   placeholder: 'Event Name',
-                  placeholderStyle: TextStyle(
-                    color: CupertinoColors.systemGrey, // Placeholder (hint) text color
+                  placeholderStyle: const TextStyle(
+                    //color: settingUI.isDarkMode ? CupertinoColors.systemGrey : CupertinoColors.black, // Placeholder (hint) text color
                     fontWeight: FontWeight.bold, // Make it bold
                   ),
                   prefix: const Icon(CupertinoIcons.news),
@@ -177,71 +173,71 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
                 ),
                 CupertinoTextFormFieldRow(
                   controller: _eventHostController,
-                  placeholder: 'Event Host',
-                  placeholderStyle: TextStyle(
-                    color: CupertinoColors.systemGrey, // Placeholder (hint) text color
+                  placeholder: 'event Host',
+                  placeholderStyle: const TextStyle(
+                    //color: settingUI.isDarkMode ? CupertinoColors.white : CupertinoColors.black, // Placeholder (hint) text color
                     fontWeight: FontWeight.bold, // Make it bold
                   ),
                   prefix: const Icon(CupertinoIcons.person),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Event host is required';
+                      return 'event host is required';
                     }
                     return null;
                   },
                 ),
                 CupertinoTextFormFieldRow(
                   controller: _eventDateController,
-                  placeholder: 'Event Date',
-                  placeholderStyle: TextStyle(
-                    color: CupertinoColors.systemGrey, // Placeholder (hint) text color
+                  placeholder: 'event Date',
+                  placeholderStyle: const TextStyle(
+                    //color: settingUI.isDarkMode ? CupertinoColors.white : CupertinoColors.black, // Placeholder (hint) text color
                     fontWeight: FontWeight.bold, // Make it bold
                   ),
                   prefix: const Icon(CupertinoIcons.calendar),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Event date is required';
+                      return 'event date is required';
                     }
                     return null;
                   },
                 ),
                 CupertinoTextFormFieldRow(
                   controller: _eventLocationController,
-                  placeholder: 'Event Location',
-                  placeholderStyle: TextStyle(
-                    color: CupertinoColors.systemGrey, // Placeholder (hint) text color
+                  placeholder: 'event Location',
+                  placeholderStyle: const TextStyle(
+                    //color: settingUI.isDarkMode ? CupertinoColors.white : CupertinoColors.black, // Placeholder (hint) text color
                     fontWeight: FontWeight.bold, // Make it bold
                   ),
                   prefix: const Icon(CupertinoIcons.location),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Event location is required';
+                      return 'event location is required';
                     }
                     return null;
                   },
                 ),
                 CupertinoTextFormFieldRow(
                   controller: _eventAboutController,
-                  placeholder: 'Event About',
-                  placeholderStyle: TextStyle(
-                    color: CupertinoColors.systemGrey, // Placeholder (hint) text color
+                  placeholder: 'event About',
+                  placeholderStyle: const TextStyle(
+                    //color: settingUI.isDarkMode ? CupertinoColors.white : CupertinoColors.black, // Placeholder (hint) text color
                     fontWeight: FontWeight.bold, // Make it bold
                   ),
                   prefix: const Icon(CupertinoIcons.info),
                   maxLines: 3, // Adjust the number of lines as needed
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Event about is required';
+                      return 'event about is required';
                     }
                     return null;
                   },
                 ),
                  CupertinoFormRow(
-      prefix: const Text(
+      prefix:  const Text(
         'Select Category:',
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: CupertinoColors.systemGrey,
+          //color: settingUI.isDarkMode ? CupertinoColors.white : CupertinoColors.black,
         ),
       ),
       child: CupertinoSegmentedControl<int>(
@@ -259,36 +255,50 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
         },
       ),
     ),
-                GestureDetector(
+               GestureDetector(
   onTap: selectimage,
   child: CupertinoTextFormFieldRow(
     controller: _eventPhotoController,
-    placeholder: 'tap the camera icon to add your image ',
-    enabled: false ,
-    placeholderStyle: TextStyle(
-
-      color: CupertinoColors.systemGrey, // Placeholder (hint) text color
+    placeholder: 'Tap the camera icon to add your image',
+    enabled: false,
+    placeholderStyle: const TextStyle(
+      //color: settingUI.isDarkMode ? CupertinoColors.white : CupertinoColors.black, // Placeholder (hint) text color
       fontWeight: FontWeight.bold, // Make it bold
     ),
     prefix: const Icon(CupertinoIcons.photo_camera),
+    textAlign: TextAlign.center,
     validator: (value) {
       if (_image == null) {
-        return 'Event photo is required';
+        return 'event photo is required';
       }
       return null;
     },
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10.0), // Set border radius here
+      border: Border.all(color: CupertinoColors.systemGrey), // You can adjust border properties
+    ),
   ),
 ),
+
                 const SizedBox(height: 20.0),
                 CupertinoButton.filled(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // Form is valid, you can submit the event here
+                      const CupertinoActivityIndicator(); 
                       add_new_event(_eventNameController.text.trim(), _eventHostController.text.trim(), _eventDateController.text.trim(), _eventLocationController.text.trim(), _eventAboutController.text.trim(), _image! );
-                      
+                       showDialog(context: context, builder: (context) {
+                          return   const    CupertinoAlertDialog(
+                        title:  Text('Alert'),
+                        content:  Text("Event added success", style: TextStyle(color: Colors.green),),
+                        
+                        
+                          );});
+                           Navigator.pop(context);
+  
                     }
                   },
-                  child: Text('Submit Event'),
+                  child: const Text('Submit Event'),
                 ),
               ],
             ),
