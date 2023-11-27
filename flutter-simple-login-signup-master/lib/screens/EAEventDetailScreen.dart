@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -51,10 +53,7 @@ Future<void> sendNotification(String deviceToken, String title, String body) asy
           },
         ),
       );
-      print("sent");
     } catch (e) {
-      print("error push notification");
-      print(e);
     }
       
 }
@@ -77,7 +76,6 @@ class _EAEventDetailScreenState extends State<EAEventDetailScreen> {
   ];
     return WillPopScope(
      onWillPop: () async {
-      print("backpressed button ");
       Navigator.pop(context);
       return true ; 
      },

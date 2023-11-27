@@ -1,8 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:login_signup/main.dart';
 import 'package:login_signup/screens/EAForYouTabScreen.dart';
-import 'package:login_signup/screens/PurchaseMoreScreen.dart';
-import 'package:flutter/material.dart';
 import 'package:login_signup/utils/EADataProvider.dart';
 
 
@@ -16,15 +16,7 @@ class EAHomeScreen extends StatefulWidget {
 }
 
 class EAHomeScreenState extends State<EAHomeScreen> {
-  final _kTabs = <Tab>[
-    const Tab(text: 'Incoming events'),
-    const Tab(text: 'Past events'),
-  ];
 
-  final _kTabPages = <Widget>[
-    const EAForYouTabScreen(),
-    const PurchaseMoreScreen(),
-  ];
 
   @override
   void initState() {

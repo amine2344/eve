@@ -23,8 +23,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-  print('Handling a background message: ${message.notification?.title}');
-  print('Handling a background message ${message.messageId}');
   if (kDebugMode) {
    print("Handling a background message: ${message.messageId}");
    print('Message data: ${message.data}');
@@ -67,7 +65,7 @@ final settings = await messaging.requestPermission(
 // use the registration token to send messages to users from your trusted server environment
  String? token;
 
- if (DefaultFirebaseOptions.currentPlatform == DefaultFirebaseOptions.web) {
+ /* if (DefaultFirebaseOptions.currentPlatform == DefaultFirebaseOptions.web) {
    token = await messaging.getToken(
      vapidKey: vapidKey,
    );
@@ -78,7 +76,7 @@ final settings = await messaging.requestPermission(
  if (kDebugMode) {
    print('Registration Token=$token');
  }
-
+ */
    
  // TODO: Register with FCM
 
@@ -104,19 +102,16 @@ final settings = await messaging.requestPermission(
   await messagings.requestPermission();
   
   // Obtain the FCM token
-  String? fcmToken = await messagings.getToken();
 
   // Register a callback for receiving messages
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     // Handle the incoming message
-    print('Received message: ${message.notification?.title}');
   });
 
   // Handle any initial notification after the app launch
   RemoteMessage? initialMessage = await messaging.getInitialMessage();
   if (initialMessage != null) {
     // Handle the initial message
-    print('Received initial message: ${initialMessage.notification?.title}');
   }
 
   runApp(const MyApp());
@@ -129,7 +124,6 @@ Future<void> initializeOtherClass() async {
   await ListEvents.initialise() ; 
   await Future.delayed(const Duration(seconds: 2)); // Simulated initialization delay
   
-  print('Other class initialized');
   
 }
 
@@ -142,7 +136,6 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
   
   
-  @override
   Widget build(BuildContext context) {
    return  MaterialApp(
      initialRoute: '/', // Set your initial route (if needed).
@@ -194,19 +187,13 @@ class _MyAppWithSplashState extends State<MyAppWithSplash> {
   }
 }
 class _MyAppState extends State<MyApp> {
- String _lastMessage = "";
 
 
  _MyAppState() {
    _messageStreamController.listen((message) {
      setState(() {
        if (message.notification != null) {
-         _lastMessage = 'Received a notification message:'
-             '\nTitle=${message.notification?.title},'
-             '\nBody=${message.notification?.body},'
-             '\nData=${message.data}';
        } else {
-         _lastMessage = 'Received a data message: ${message.data}';
        }
      });
    });

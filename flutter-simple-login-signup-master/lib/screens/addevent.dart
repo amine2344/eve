@@ -8,6 +8,7 @@ class AddEventPage extends StatefulWidget {
   const AddEventPage({super.key, this.name});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AddEventPage createState() => _AddEventPage();
 }
 
@@ -35,8 +36,8 @@ class _AddEventPage extends State<AddEventPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightness = CupertinoTheme.brightnessOf(context);
 
+    // ignore: deprecated_member_use
     return WillPopScope(child: 
     
     

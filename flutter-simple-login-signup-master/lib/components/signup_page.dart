@@ -3,7 +3,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -29,7 +28,6 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
 
-  File? _profileImage;
 
   final _signupFormKey = GlobalKey<FormState>();
   String? mtoken = " ";
@@ -47,6 +45,7 @@ class _SignupPageState extends State<SignupPage> {
  final TextEditingController _lastnameController = TextEditingController();
  final TextEditingController _whatsappController = TextEditingController();
  final TextEditingController _instaController = TextEditingController();
+ // ignore: non_constant_identifier_names
  final TextEditingController _ProfessionController = TextEditingController();
 
   @override
@@ -103,7 +102,6 @@ class _SignupPageState extends State<SignupPage> {
     if (file!= null ){
       return await file.readAsBytes() ; 
     }
-    print("no images selected ! ") ; 
 }
 Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
   try {
@@ -362,17 +360,10 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
   void _handleSignupUser()  async { 
 
 
-        print("text :${_emailController.text}");
          String name = _nameController.text.trim();
-                String titleText = _ProfessionController.text;
-                String bodyText = "instagramid : $_instaController.text";
 
                 if(name != "") {
-                  DocumentSnapshot snap =
-                  await FirebaseFirestore.instance.collection("users").doc("U5yD85uYmBMDQXwrFe1h9ESoyLA3").get();
 
-                  String token = snap['token'];
-                  print(token);
 
 
                 }
@@ -387,7 +378,6 @@ Future<String> uploadImageToFirestore(Uint8List imageBytes) async {
 
 
       } 
-  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<String> uploadImageToStorage(String fileName, Uint8List file) async {
   try {

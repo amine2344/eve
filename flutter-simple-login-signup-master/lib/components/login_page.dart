@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                       key: _loginFormKey,
                       child:  Column(
           
-        
+                    mainAxisSize: MainAxisSize.min, // Add this line
 
 
                         children: [
@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(
                             width: size.width * 0.8,
                             child:  Column(
-            
+                        mainAxisSize: MainAxisSize.min, // Add this line
                               children: [
                                 const Text('Don\'t have an account ? ', style: TextStyle(fontSize: 13, color: Color(0xff939393), fontWeight: FontWeight.bold),),
                                 GestureDetector(
